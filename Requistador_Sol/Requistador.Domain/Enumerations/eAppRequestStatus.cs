@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Requistador.Domain.Enumerations
 {
-    public enum eClientRequestStatus
+    public enum eAppRequestStatus
     {
-        Pending, Resolved, Rejected, Failed
+        Pending, Resolved, Rejected, Failed, None
     }
 }

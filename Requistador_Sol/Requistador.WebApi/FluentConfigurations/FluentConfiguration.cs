@@ -29,8 +29,8 @@ namespace Requistador.WebApi.FluentConfigurations
                 .ExportTo("interfaces.ts"));
 
             builder.ExportAsEnums(new Type[] {
-                typeof(eClientRequestStatus),
-                typeof(eClientRequestType),
+                typeof(eAppRequestStatus),
+                typeof(eAppRequestType),
                 typeof(eEntityStatus)
             },
             cfg => cfg.ExportTo("enums.ts"));

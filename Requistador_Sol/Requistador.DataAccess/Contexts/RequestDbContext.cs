@@ -32,7 +32,7 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
-        public TEntity Get<TEntity>(int id) where TEntity : ClientRequest<BaseEntity>
+        public TEntity Get<TEntity>(int id) where TEntity : AppRequest<BaseEntity>
         {
             using (var db = new LiteDatabase(_dbPath))
             {
@@ -43,7 +43,7 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
-        public TEntity Get<TEntity>(Query dbQuery) where TEntity : ClientRequest<BaseEntity>
+        public TEntity Get<TEntity>(Query dbQuery) where TEntity : AppRequest<BaseEntity>
         {
             using (var db = new LiteDatabase(_dbPath))
             {
@@ -54,7 +54,7 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
-        public IEnumerable<TEntity> FindAll<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : ClientRequest<BaseEntity>
+        public IEnumerable<TEntity> FindAll<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : AppRequest<BaseEntity>
         {
             using (var db = new LiteDatabase(_dbPath))
             {
@@ -65,7 +65,7 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
-        public void Insert<TEntity>(TEntity entity) where TEntity : ClientRequest<BaseEntity>
+        public void Insert<TEntity>(TEntity entity) where TEntity : AppRequest<BaseEntity>
         {
             using (var db = new LiteDatabase(_dbPath))
             {

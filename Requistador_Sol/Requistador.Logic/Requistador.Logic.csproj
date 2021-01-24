@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Requistador.DataAccess\Requistador.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
 </Project>

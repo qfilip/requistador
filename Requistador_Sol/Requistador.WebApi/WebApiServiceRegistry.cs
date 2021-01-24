@@ -6,6 +6,7 @@ using Requistador.DataAccess.Contexts;
 using Requistador.DataAccess.Extensions;
 using Requistador.Logic.Base;
 using Requistador.WebApi.AppConfiguration;
+using Requistador.WebApi.Services;
 using System.Reflection;
 
 namespace Requistador.WebApi
@@ -18,6 +19,7 @@ namespace Requistador.WebApi
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlite(appDbPath));
             services.AddRequestsDb(requestsDbPath);
+            services.AddHostedService<RequestQueueService>();
         }
     }
 }

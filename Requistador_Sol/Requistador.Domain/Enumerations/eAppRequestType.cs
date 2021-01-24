@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Requistador.Domain.Enumerations
 {
-    public enum eClientRequestType
+    public enum eAppRequestType
     {
         Add, Modify, Delete
     }
