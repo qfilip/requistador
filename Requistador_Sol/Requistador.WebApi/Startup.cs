@@ -6,17 +6,26 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Requistador.WebApi.AppConfiguration;
+using System.IO;
+using System.Reflection;
 
 namespace Requistador.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private readonly string _appDbPath;
+        private readonly string _requestsDbPath;
 
         public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        {
+            Configuration = configuration;
+            string path = GlobalVariables.AppDbSourcePrefix + environment.WebRootPath;
+
+            _appDbPath = Path.Combine(path, GlobalVariables.AppDbName);
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -29,7 +38,7 @@ namespace Requistador.WebApi
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             }); ;
             
-            WebApiServiceRegistry.AddApiServices(services);
+            WebApiServiceRegistry.AddApiServices(services, _appDbPath, _requestsDbPath);
             
             services.AddCors(options =>
                 options.AddDefaultPolicy(builder =>

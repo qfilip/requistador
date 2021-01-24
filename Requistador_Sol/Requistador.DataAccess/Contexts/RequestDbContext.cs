@@ -1,4 +1,6 @@
 ﻿using LiteDB;
+using Microsoft.Extensions.Options;
+using Requistador.DataAccess.Extensions;
 using Requistador.Domain.Base;
 using Requistador.Domain.Entities;
 using System;
@@ -9,14 +11,25 @@ using System.Text;
 
 namespace Requistador.DataAccess.Contexts
 {
-    public class EventDbContext
+    public class RequestDbContext
     {
         private readonly string _dbPath;
         private readonly string _collection;
-        public EventDbContext(string dbPath)
+        public readonly LiteDatabase Context;
+        public RequestDbContext(IOptions<LiteDbConfig> configs)
         {
-            _collection = "client-requests";
-            _dbPath = dbPath;
+            try
+            {
+                //var db = new LiteDatabase(configs.Value.DatabasePath);
+                //if (db != null)
+                //    Context = db;
+                _dbPath = configs.Value.DatabasePath;
+                _collection = "client-requests";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Can find or create LiteDb database.", ex);
+            }
         }
 
         public TEntity Get<TEntity>(int id) where TEntity : ClientRequest<BaseEntity>

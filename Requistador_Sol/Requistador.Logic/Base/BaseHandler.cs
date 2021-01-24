@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Requistador.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,29 +14,27 @@ namespace Requistador.Logic.Base
     {
         protected readonly IMapper _mapper;
         protected readonly IMediator _mediator;
-        //protected readonly ApplicationDbContext _dbContext;
-        //protected readonly CommandService _commandService;
+        protected readonly AppDbContext _dbContext;
 
-        //public BaseHandler(ApplicationDbContext dbContext)
-        //{
-        //    _appMapper = new ManualMapper();
-        //    _dbContext = dbContext;
-        //}
+        public BaseHandler(AppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
-        //public BaseHandler(ApplicationDbContext dbContext, IMediator mediator)
-        //{
-        //    _appMapper = new ManualMapper();
-        //    _dbContext = dbContext;
-        //    _mediator = mediator;
-        //}
+        public BaseHandler(AppDbContext dbContext, IMapper mapper)
+        {
+            _dbContext = dbContext;
+            _mapper = mapper;
+        }
 
-        //public BaseHandler(IMediator mediator, CommandService commandService, ApplicationDbContext dbContext)
-        //{
-        //    _appMapper = new ManualMapper();
-        //    _mediator = mediator;
-        //    _commandService = commandService;
-        //    _dbContext = dbContext;
-        //}
+        public BaseHandler(AppDbContext dbContext, IMapper mapper, IMediator mediator)
+        {
+            _dbContext = dbContext;
+            _mapper = mapper;
+            _mediator = mediator;
+        }
+
+
 
         public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);
     }

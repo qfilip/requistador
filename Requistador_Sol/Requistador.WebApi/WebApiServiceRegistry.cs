@@ -1,21 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Requistador.Logic.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using MediatR;
-using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Requistador.DataAccess.Contexts;
+using Requistador.DataAccess.Extensions;
+using Requistador.Logic.Base;
+using Requistador.WebApi.AppConfiguration;
+using System.Reflection;
 
 namespace Requistador.WebApi
 {
     public static class WebApiServiceRegistry
     {
-        public static void AddApiServices(IServiceCollection services)
+        public static void AddApiServices(IServiceCollection services, string appDbPath, string requestsDbPath)
         {
             services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
             services.AddAutoMapper(typeof(MappingProfiles));
+            services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlite(appDbPath));
+            services.AddRequestsDb(requestsDbPath);
         }
     }
 }

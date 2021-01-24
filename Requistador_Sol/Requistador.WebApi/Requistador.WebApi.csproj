@@ -9,16 +9,20 @@
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Reinforced.Typings" Version="1.5.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Requistador.DataAccess\Requistador.DataAccess.csproj" />
+    <ProjectReference Include="..\Requistador.Domain\Requistador.Domain.csproj" />
     <ProjectReference Include="..\Requistador.Logic\Requistador.Logic.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="AppConfiguration\Extensions\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
