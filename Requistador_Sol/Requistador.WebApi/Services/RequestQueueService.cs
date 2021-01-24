@@ -14,11 +14,13 @@ namespace Requistador.WebApi.Services
     {
         private Timer _timer;
         private readonly RequestDbContext _dbContext;
+        private readonly RequestResolverService<BaseEntity> _resolverService;
         private readonly Expression<Func<AppRequest<BaseEntity>, bool>> _pendingQuery;
 
-        public RequestQueueService(RequestDbContext dbContext)
+        public RequestQueueService(RequestDbContext dbContext, RequestResolverService<BaseEntity> resolverService)
         {
             _dbContext = dbContext;
+            _resolverService = resolverService;
             _pendingQuery = (x) => x.RequestStatus == eAppRequestStatus.Pending;
         }
 
@@ -35,11 +37,13 @@ namespace Requistador.WebApi.Services
 
         private void ProcessRequests(object state)
         {
-            var pendingRequests = _dbContext.FindAll(_pendingQuery);
-            foreach(var request in pendingRequests)
+            Action resolveAction = async () =>
             {
-                request.Entity;
-            }
+                var pendingRequests = _dbContext.FindAll(_pendingQuery);
+                await _resolverService.ResolveRequestsAsync(pendingRequests);
+            };
+
+            resolveAction();
         }
     }
 }

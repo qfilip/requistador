@@ -73,5 +73,14 @@ namespace Requistador.DataAccess.Contexts
                 collection.Insert(entity);
             }
         }
+
+        public void InsertMany<TEntity>(IEnumerable<TEntity> entity) where TEntity : AppRequest<BaseEntity>
+        {
+            using (var db = new LiteDatabase(_dbPath))
+            {
+                var collection = db.GetCollection<TEntity>(_collection);
+                collection.InsertBulk(entity);
+            }
+        }
     }
 }

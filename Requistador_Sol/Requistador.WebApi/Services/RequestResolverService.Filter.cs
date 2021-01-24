@@ -12,17 +12,16 @@ using System.Threading.Tasks;
 
 namespace Requistador.WebApi.Services
 {
-    public class RequestResolverService<T> where T : BaseEntity
+    public partial class RequestResolverService<T> where T : BaseEntity
     {
         private readonly IMediator _mediator;
-        private readonly AppDbContext _dbContext;
-        public RequestResolverService(AppDbContext dbContext, IMediator mediator)
+        private readonly RequestDbContext _dbContext;
+        public RequestResolverService(RequestDbContext dbContext, IMediator mediator)
         {
-            _mediator = mediator;
             _dbContext = dbContext;
         }
 
-        public async Task ResolveRequests(IEnumerable<AppRequest<T>> pendingRequests)
+        public async Task ResolveRequestsAsync(IEnumerable<AppRequest<T>> pendingRequests)
         {
             var systemRequests = new List<AppRequest<T>>();
             
@@ -31,31 +30,29 @@ namespace Requistador.WebApi.Services
             var otherRequests = pendingRequests
                 .Where(x => x.RequestType != eAppRequestType.Add);
 
-            systemRequests.AddRange(await ResolveAddRequests(addRequests));
-            systemRequests.AddRange(await ResolveOtherRequests(otherRequests));
+            systemRequests.AddRange(await ResolveAddRequestsAsync(addRequests));
+            systemRequests.AddRange(await ResolveOtherRequestsAsync(otherRequests));
+
+            systemRequests = systemRequests.OrderBy(x => x.CreatedOn).ToList();
+            
+            var castedRequests = systemRequests as IEnumerable<AppRequest<BaseEntity>>;
+            _dbContext.InsertMany(castedRequests);
         }
 
-        private async Task<IEnumerable<AppRequest<T>>> ResolveAddRequests(IEnumerable<AppRequest<T>> addRequests)
+        private async Task<IEnumerable<AppRequest<T>>> ResolveAddRequestsAsync(IEnumerable<AppRequest<T>> addRequests)
         {
             var systemRequests = new List<AppRequest<T>>();
             foreach(var request in addRequests)
             {
                 var resultStatus = eAppRequestStatus.None;
+                
                 if (request.Entity is Cocktail)
-                {
-                    var entity = request.Entity as Cocktail;
-                    resultStatus = await _mediator.Send(new AddCocktailCommand(entity));
-                }
-                //else if (request.Entity is IngredientDto)
-                //{
-                //    var dto = request.Entity as IngredientDto;
-                //    await _mediator.Send(new AddCocktailCommand(dto));
-                //}
-                //else if (request.Entity is ExcerptDto)
-                //{
-                //    var dto = request.Entity as ExcerptDto;
-                //    await _mediator.Send(new AddCocktailCommand(dto));
-                //}
+                    resultStatus = await ResolveCocktailRequestAsync(request);
+                else if (request.Entity is Ingredient)
+                    resultStatus = await ResolveIngredientRequestAsync(request);
+                else if (request.Entity is Excerpt)
+                    resultStatus = await ResolveExcerptRequestAsync(request);
+
                 var resultingRequest = CreateResultingRequest(request, resultStatus);
                 systemRequests.Add(resultingRequest);
             }
@@ -63,8 +60,10 @@ namespace Requistador.WebApi.Services
             return systemRequests;
         }
 
-        private async Task<IEnumerable<AppRequest<T>>> ResolveOtherRequests(IEnumerable<AppRequest<T>> otherRequests)
+        private async Task<IEnumerable<AppRequest<T>>> ResolveOtherRequestsAsync(IEnumerable<AppRequest<T>> otherRequests)
         {
+            var systemRequests = new List<AppRequest<T>>();
+            
             var requestsToProcess = new List<AppRequest<T>>();
             var requestsForAutoReject = new List<AppRequest<T>>();
 
@@ -103,6 +102,46 @@ namespace Requistador.WebApi.Services
                 requestsToProcess.AddRange(toProcess);
                 requestsForAutoReject.AddRange(toAutoReject);
             }
+
+            systemRequests.AddRange(await ResolveRequestsForProcessingAsync(requestsToProcess));
+            systemRequests.AddRange(AutoRejectRequests(requestsForAutoReject));
+
+            
+            return systemRequests;
+        }
+
+        private async Task<IEnumerable<AppRequest<T>>> ResolveRequestsForProcessingAsync(IEnumerable<AppRequest<T>> clientRequests)
+        {
+            var systemRequests = new List<AppRequest<T>>();
+            
+            foreach(var request in clientRequests)
+            {
+                var resultStatus = eAppRequestStatus.None;
+                
+                if (request.Entity is Cocktail)
+                    resultStatus = await ResolveCocktailRequestAsync(request);
+                else if(request.Entity is Ingredient)
+                    resultStatus = await ResolveIngredientRequestAsync(request);
+                else if (request.Entity is Excerpt)
+                    resultStatus = await ResolveExcerptRequestAsync(request);
+
+                var systemRequest = CreateResultingRequest(request, resultStatus);
+                systemRequests.Add(systemRequest);
+            }
+
+
+            return systemRequests;
+        }
+
+        private IEnumerable<AppRequest<T>> AutoRejectRequests(IEnumerable<AppRequest<T>> clientRequest)
+        {
+            var systemRequests = new List<AppRequest<T>>();
+
+            foreach (var request in clientRequest)
+                systemRequests.Add(CreateResultingRequest(request, eAppRequestStatus.Rejected));
+
+            
+            return systemRequests;
         }
 
         private AppRequest<T> CreateResultingRequest(AppRequest<T> clientRequest, eAppRequestStatus resultStatus)
