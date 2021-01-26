@@ -1,0 +1,46 @@
+// font size
+
+@for $i from 1 to 10 {
+    .fs-#{$i}-rem {
+        font-size: #{$i}rem;
+    }
+}
+
+// height/witdth
+@for $i from 1 to 100 {
+    .h-#{$i}-pc {
+        height: #{$i}\%;
+    }
+
+    .w-#{$i}-pc {
+        width: #{$i}\%;
+    }
+
+    .h-#{$i}-vh {
+        height: #{$i}vh;
+    }
+
+    .w-#{$i}-vw {
+        height: #{$i}vw;
+    }
+}
+
+// min width/height
+
+@for $i from 1 to 100 {
+    .min-h-#{$i}-pc {
+        min-height: #{$i}\%;
+    }
+
+    .min-w-#{$i}-pc {
+        min-width: #{$i}\%;
+    }
+
+    .min-h-#{$i}-vh {
+        min-height: #{$i}vh;
+    }
+
+    .min-w-#{$i}-vw {
+        min-height: #{$i}vw;
+    }
+}

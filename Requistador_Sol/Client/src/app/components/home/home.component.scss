@@ -1,0 +1,41 @@
+@import '../../../styles.scss';
+
+.nav-container {
+    max-height: 100vh;
+    overflow-y: hidden;
+    background-color: $green-dark;
+}
+
+.nav-box {
+    min-height: 100vh;
+    font-size: 3rem;
+    background-color: $green-dark;
+    color: $green-light;
+    transition: .5s;
+    &:hover {
+        background-color: $orange-dark;
+        color: $red-dark;
+        cursor: crosshair;
+    }
+}
+
+.nav-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    background-color: $red-dark;
+    color: $green-light;
+    text-shadow: -1px .5px .5px $orange-light;
+    font-weight: bold;
+    transition: .5s;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0;
+}

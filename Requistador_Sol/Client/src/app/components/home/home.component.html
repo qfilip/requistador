@@ -1,0 +1,16 @@
+<div class="nav-container">
+    <div class="w3-row">
+        <div *ngFor="let link of navLinks" class="w3-quarter">
+            <div
+                (mouseover)="displayLinkText(link.text)"
+                (mouseout)="hideLinkText()"
+                [innerHTML]="link.icon"
+                class="nav-box flx-center">
+                <i class="las la-list-ul"></i>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="!!linkText ? 'visible' : 'hidden'" class="nav-text">
+        {{ linkText }}
+    </div>
+</div>

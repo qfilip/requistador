@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import './colors.scss';
+.flx-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// fonts
+@font-face {
+    font-family: candara;
+    src: url(/fonts/Candara.ttf);
+}
+
+body {
+    font-family: candara;
+}
