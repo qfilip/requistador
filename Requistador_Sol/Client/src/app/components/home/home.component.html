@@ -2,6 +2,7 @@
     <div class="w3-row">
         <div *ngFor="let link of navLinks" class="w3-quarter">
             <div
+                (click)="navigateTo(link.path)"
                 (mouseover)="displayLinkText(link.text)"
                 (mouseout)="hideLinkText()"
                 [innerHTML]="link.icon"

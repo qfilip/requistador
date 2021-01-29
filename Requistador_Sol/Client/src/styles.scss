@@ -14,6 +14,20 @@ body {
 }
 
 // classes
+
+// flex
+.flx {
+    display: flex;
+}
+
+.space-around { justify-content: space-around; }
+.space-between { justify-content: space-between; }
+.content-center {justify-content: center; }
+
+.align-start { align-items: flex-start; }
+.align-end { align-items: flex-end; }
+.align-center { align-items: center; }
+
 .flx-center {
     display: flex;
     align-items: center;
@@ -25,6 +39,7 @@ body {
     align-items: center;
 }
 
+// utils
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -32,6 +47,19 @@ body {
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently */
+}
+
+.m-auto {
+    margin: auto;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-c {
+    text-align: center;
 }
 
 /* .neumorphic {

@@ -2,43 +2,68 @@
 
 @for $i from 1 to 10 {
     .fs-#{$i}-rem {
-        font-size: #{$i}rem;
+        font-size: 8px * $i;
+    }
+}
+
+// margins
+@for $i from 1 to 101 {
+    .m-#{$i} {
+        margin: 8px * $i;
+    }
+
+    .mt-#{$i} {
+        margin-top: 8px * $i;
+    }
+
+    .mb-#{$i} {
+        margin-bottom: 8px * $i;
+    }
+
+    .mx-#{$i} {
+        margin-right: 8px * $i;
+        margin-left: 8px * $i;
+    }
+
+    .my-#{$i} {
+        margin-top: 8px * $i;
+        margin-bottom: 8px * $i;
     }
 }
 
 // paddings
-@for $i from 1 to 100 {
+@for $i from 1 to 101 {
     .p-#{$i} {
-        padding: #{$i}rem;
+        padding: 8px * $i;
     }
 
     .pl-#{$i} {
-        padding-left: #{$i}rem;
+        padding-left: 8px * $i;
     }
 
     .pr-#{$i} {
-        padding-right: #{$i}rem;
+        padding-right: 8px * $i;
     }
 
     .px-#{$i} {
-        padding-right: #{$i}rem;
-        padding-left: #{$i}rem;
+        padding-right: 8px * $i;
+        padding-left: 8px * $i;
     }
 
     .py-#{$i} {
-        padding-top: #{$i}rem;
-        padding-bottom: #{$i}rem;
+        padding-top: 8px * $i;
+        padding-bottom: 8px * $i;
     }
 }
 
 // height/witdth
-@for $i from 1 to 100 {
+@for $i from 1 to 101 {
     .h-#{$i}-pc {
-        height: #{$i}\%;
+        height: #{$i}#{"%"};
     }
 
     .w-#{$i}-pc {
-        width: #{$i}\%;
+        width: #{$i}#{"%"};
     }
 
     .h-#{$i}-vh {
@@ -52,13 +77,13 @@
 
 // min width/height
 
-@for $i from 1 to 100 {
+@for $i from 1 to 101 {
     .min-h-#{$i}-pc {
-        min-height: #{$i}\%;
+        min-height: #{$i}#{"%"};
     }
 
     .min-w-#{$i}-pc {
-        min-width: #{$i}\%;
+        min-width: #{$i}#{"%"};
     }
 
     .min-h-#{$i}-vh {

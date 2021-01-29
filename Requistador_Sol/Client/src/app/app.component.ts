@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { DialogComponent } from './components/common/dialog/dialog.component';
+import { eButtonStyle } from './models/enums/eButtonStyle';
+import { IDialogOptions } from './models/interfaces/IDialogOptions';
 import { PageLoaderService } from './services/page-loader.service';
 
 @Component({
@@ -20,7 +22,23 @@ export class AppComponent {
     }
 
     openDialog() {
-        this.dialog.open();
+        const o = {
+            acceptFn: this.alertMe
+        } as IDialogOptions
+        
+        this.dialog.open(o);
     }
+
+    private alertMe() {
+        alert('Hi');
+    }
+
+    buttonAction() {
+        alert('Button works');
+    }
+    
+    buttonRed = eButtonStyle.Red;
+    buttonGreen = eButtonStyle.Green;
+    buttonOrange = eButtonStyle.Orange;
 }
 

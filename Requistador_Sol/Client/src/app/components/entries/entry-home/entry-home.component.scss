@@ -1,0 +1,18 @@
+@import '../../../../styles.scss';
+
+.panel {
+    min-height: 100vh;
+}
+
+.panel-left {
+    background-color: $orange-dark;
+    & > .header {
+        background-color: $red-dark;
+        font-weight: bold;
+        font-size: 1.3rem;
+    }
+}
+
+.panel-right {
+    background-color: $green-dark;
+}

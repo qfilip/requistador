@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { INavigationBox } from './home.component.models';
 
 @Component({
@@ -7,7 +8,7 @@ import { INavigationBox } from './home.component.models';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-    constructor() { }
+    constructor(private router: Router) { }
 
     navLinks: INavigationBox[];
     linkText: string;
@@ -30,12 +31,15 @@ export class HomeComponent implements OnInit {
             return {text: text, icon: icon, path: path } as INavigationBox;
         }
         this.navLinks = [
-            mkLink('Entries', '<i class="lab la-edge"></i>',''),
+            mkLink('Entries', '<i class="lab la-edge"></i>','entries'),
             mkLink('Requests', '<i class="las la-list-ul"></i>',''),
             mkLink('System Config', '<i class="las la-cog"></i>',''),
             mkLink('About', '<i class="las la-question"></i>',''),
         ];
-        console.table(this.navLinks);
-        
+    }
+
+    navigateTo(route: string) {
+        const navigateTo = `/${route}`;
+        this.router.navigate([navigateTo]);
     }
 }

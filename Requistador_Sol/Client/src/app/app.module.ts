@@ -7,6 +7,10 @@ import { HomeComponent } from './components/home/home.component';
 import { DialogComponent } from './components/common/dialog/dialog.component';
 import { PageLoaderComponent } from './components/common/page-loader/page-loader.component';
 import { PageLoaderService } from './services/page-loader.service';
+import { AppButtonComponent } from './components/common/app-button/app-button.component';
+import { CocktailTableComponent } from './components/entries/cocktail/cocktail-table/cocktail-table.component';
+import { CocktailDetailsComponent } from './components/entries/cocktail/cocktail-details/cocktail-details.component';
+import { EntryHomeComponent } from './components/entries/entry-home/entry-home.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,10 @@ import { PageLoaderService } from './services/page-loader.service';
     // components
     AppComponent,
     HomeComponent,
+    AppButtonComponent,
+    CocktailTableComponent,
+    CocktailDetailsComponent,
+    EntryHomeComponent,
   ],
   imports: [
     BrowserModule,
