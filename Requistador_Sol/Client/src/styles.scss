@@ -1,10 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import './colors.scss';
-.flx-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+@import './styles.dynamic.scss';
 
 // fonts
 @font-face {
@@ -12,6 +8,33 @@
     src: url(/fonts/Candara.ttf);
 }
 
+// defaults
 body {
     font-family: candara;
 }
+
+// classes
+.flx-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flx-y-center {
+    display: flex;
+    align-items: center;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently */
+}
+
+/* .neumorphic {
+    box-shadow: inset 5px 5px 10px #401919,
+    inset -5px -5px 10px #782e2e
+*/

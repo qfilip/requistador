@@ -1,0 +1,46 @@
+@import "../../../../styles.scss";
+
+.loader-background {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-container {
+    position: absolute;
+    z-index: 2000;
+    min-width: 100vw;
+    min-height: 100vh;
+    background: $red-darker-transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-message-container {
+    text-align: center;
+    border-radius: 5px;
+    color: $orange-light;
+    font-size: 1.3rem;
+    // box-shadow: 2px 2px 4px black;
+    text-shadow: inset 5px 5px 10px $red-dark, inset -5px -5px 10px $red-dark;
+    box-shadow: inset 5px 5px 10px $red-dark, inset -5px -5px 10px $red-dark;
+}
+
+.loader-progress-container {
+    min-width: 100%;
+    min-height: 1.3rem;
+    width: 100%;
+    background-color: $red-darkest;
+}
+
+.progress-bar {
+    min-height: 1rem;
+    background-color: $orange-light;
+}
+
+.loader-spinner-container {
+    color: $orange-light;
+    font-size: 4rem;
+}

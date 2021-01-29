@@ -30,11 +30,12 @@ export class HomeComponent implements OnInit {
             return {text: text, icon: icon, path: path } as INavigationBox;
         }
         this.navLinks = [
-            mkLink('Entries', '<i class="las la-list-ul"></i>',''),
-            mkLink('Messages', '<i class="las la-info"></i>',''),
+            mkLink('Entries', '<i class="lab la-edge"></i>',''),
+            mkLink('Requests', '<i class="las la-list-ul"></i>',''),
             mkLink('System Config', '<i class="las la-cog"></i>',''),
             mkLink('About', '<i class="las la-question"></i>',''),
         ];
         console.table(this.navLinks);
+        
     }
 }

@@ -1,2 +1,8 @@
-<router-outlet>
-</router-outlet>
+<page-loader></page-loader>
+<router-outlet></router-outlet>
+
+<app-dialog #dialog>
+    <div dialogBody>Im bodeh</div>
+</app-dialog>
+<button (click)="openDialog()">dialog</button>
+<button (click)="openPgLoader()">page loader</button>

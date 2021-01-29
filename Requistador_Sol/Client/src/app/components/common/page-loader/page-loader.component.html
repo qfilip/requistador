@@ -1,0 +1,15 @@
+<div *ngIf="loading === true" class="loader-container noselect">
+    <div class="w-75">
+        <div class="w-10 mx-auto loader-spinner-container">
+            <i class="las la-cog fa-spin"></i>
+            <i class="las la-cog fa-spin"></i>
+            <i class="las la-cog fa-spin"></i>
+        </div>
+        <div *ngIf="!!message" class="fs-15 loader-message-container">
+            <div>{{ message }}</div>
+            <div *ngIf="!!progressValue" class="loader-progress-container p-1 flx-y-center">
+                <div class="progress-bar" [style.width]="progressValueStyle"></div>
+            </div>
+        </div>
+    </div>
+</div>
