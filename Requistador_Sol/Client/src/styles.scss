@@ -8,12 +8,51 @@
     src: url(/fonts/Candara.ttf);
 }
 
-// defaults
+// DEFAULTS
 body {
     font-family: candara;
 }
 
-// classes
+button {
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.2rem;
+    transition: .5s;
+}
+
+// CLASSES
+
+// buttons
+
+
+.app-btn-green {
+    border: 2px solid $green-light;
+    color: $green-light;
+    &:hover {
+        background-color: $green-light;
+        color: $red-dark;
+    }
+}
+
+.app-btn-orange {
+    border: 2px solid $orange-light;
+    color: $orange-light;
+    &:hover {
+        background-color: $orange-light;
+        color: $red-dark;
+    }
+}
+
+.app-btn-red {
+    border: 2px solid $red-dark;
+    color: $red-dark;
+    &:hover {
+        background-color: $red-dark;
+        color: $orange-light;
+    }
+}
 
 // flex
 .flx {
@@ -60,6 +99,10 @@ body {
 
 .text-c {
     text-align: center;
+}
+
+.text-b {
+    font-weight: bold;
 }
 
 /* .neumorphic {

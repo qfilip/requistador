@@ -21,23 +21,23 @@ export class PageLoaderService {
         this.progressValue$.next(null);
     }
 
-    get pageLoaderState() {
+    get state() {
         return this.loading$.asObservable();
     }
 
-    get pageLoaderMessage() {
+    get message() {
         return this.message$.asObservable();
     }
 
-    setPageLoaderMessage(value: string) {
+    setMessage(value: string) {
         this.message$.next(value);
     }
 
-    get pageLoaderProgressValue() {
+    get progressValue() {
         return this.progressValue$.asObservable();
     }
 
-    setPageLoaderProgressValue(value: number) {
+    setProgressValue(value: number) {
         this.progressValue$.next(value);
     }
 }

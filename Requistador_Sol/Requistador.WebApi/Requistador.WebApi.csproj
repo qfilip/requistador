@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <Folder Include="AppConfiguration\Extensions\" />
-    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\syslogs\" />
   </ItemGroup>
 
 </Project>

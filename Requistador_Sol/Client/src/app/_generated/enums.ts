@@ -2,13 +2,14 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
-export enum eClientRequestStatus { 
+export enum eAppRequestStatus { 
 	Pending = 0, 
 	Resolved = 1, 
 	Rejected = 2, 
-	Failed = 3
+	Failed = 3, 
+	None = 4
 }
-export enum eClientRequestType { 
+export enum eAppRequestType { 
 	Add = 0, 
 	Modify = 1, 
 	Delete = 2

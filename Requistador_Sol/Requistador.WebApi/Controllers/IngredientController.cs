@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Requistador.DataAccess.Contexts;
-using Requistador.Logic.Queries.Cocktail;
+using Requistador.Logic.Queries.Ingredient;
 using Requistador.WebApi.Services;
 using System;
 using System.Collections.Generic;
@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace Requistador.WebApi.Controllers
 {
-    public class CocktailController : BaseApiController
+    public class IngredientController : BaseApiController
     {
-        public CocktailController(IMediator mediator, AppDbContext dbContext, SyslogService syslogService)
-            : base(mediator, dbContext, syslogService) {}
+        public IngredientController(IMediator mediator, AppDbContext dbContext, SyslogService syslogService)
+            : base(mediator, dbContext, syslogService) { }
 
 
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllCocktailsQuery());
+            var result = await _mediator.Send(new GetAllIngredientsQuery());
             return Ok(result);
         }
     }

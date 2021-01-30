@@ -37,13 +37,13 @@ namespace Requistador.WebApi.Services
 
         private void ProcessRequests(object state)
         {
-            Action resolveAction = async () =>
-            {
-                var pendingRequests = _dbContext.FindAll(_pendingQuery);
-                await _resolverService.ResolveRequestsAsync(pendingRequests);
-            };
+            //Action resolveAction = async () =>
+            //{
+            //    var pendingRequests = _dbContext.FindAll(_pendingQuery);
+            //    await _resolverService.ResolveRequestsAsync(pendingRequests);
+            //};
 
-            resolveAction();
+            //resolveAction();
         }
     }
 }

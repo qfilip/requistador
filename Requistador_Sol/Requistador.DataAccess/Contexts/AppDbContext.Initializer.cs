@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Requistador.Domain.Base;
 using Requistador.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,28 +20,21 @@ namespace Requistador.DataAccess.Contexts
             modelBuilder.Entity<Ingredient>().ToTable(nameof(Ingredient));
             modelBuilder.Entity<Excerpt>().ToTable(nameof(Excerpt));
 
-            modelBuilder.Entity<Cocktail>(e =>
-            {
-                e.HasKey(e => e.Id);
-                e.HasIndex(e => e.Id).IsUnique();
-                e.HasQueryFilter(e => e.EntityStatus == Domain.Enumerations.eEntityStatus.Active);
-            });
-
-            modelBuilder.Entity<Ingredient>(e =>
-            {
-                e.HasKey(e => e.Id);
-                e.HasIndex(e => e.Id).IsUnique();
-                e.HasQueryFilter(e => e.EntityStatus == Domain.Enumerations.eEntityStatus.Active);
-            });
-
-            modelBuilder.Entity<Excerpt>(e =>
-            {
-                e.HasKey(e => e.Id);
-                e.HasIndex(e => e.Id).IsUnique();
-                e.HasQueryFilter(e => e.EntityStatus == Domain.Enumerations.eEntityStatus.Active);
-            });
+            SetDefaultConfiguration<Cocktail>(modelBuilder);
+            SetDefaultConfiguration<Ingredient>(modelBuilder);
+            SetDefaultConfiguration<Excerpt>(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        protected void SetDefaultConfiguration<TEntity>(ModelBuilder builder) where TEntity : BaseEntity
+        {
+            builder.Entity<TEntity>(e =>
+            {
+                e.HasKey(e => e.Id);
+                e.HasIndex(e => e.Id).IsUnique();
+                e.HasQueryFilter(e => e.EntityStatus == Domain.Enumerations.eEntityStatus.Active);
+            });
         }
     }
 }

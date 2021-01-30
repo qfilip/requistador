@@ -14,17 +14,18 @@ namespace Requistador.WebApi
 {
     public class Startup
     {
-        private readonly string _appDbPath;
-        private readonly string _requestsDbPath;
-
+        private readonly AppSettings _appSettings;
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
-            string path = GlobalVariables.AppDbSourcePrefix + environment.WebRootPath;
+            string appDbPath = GlobalVariables.AppDbSourcePrefix + environment.WebRootPath;
 
-            _appDbPath = Path.Combine(path, GlobalVariables.AppDbName);
+            var syslogsPath = Path.Combine(environment.WebRootPath, GlobalVariables.AppLogFolder);
+            var dbConnString = Path.Combine(appDbPath, GlobalVariables.AppDbName);
+            
+            _appSettings = new AppSettings(dbConnString, "");
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -38,14 +39,14 @@ namespace Requistador.WebApi
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             }); ;
             
-            WebApiServiceRegistry.AddApiServices(services, _appDbPath, _requestsDbPath);
+            WebApiServiceRegistry.AddApiServices(services, _appSettings);
             
             services.AddCors(options =>
                 options.AddDefaultPolicy(builder =>
                     builder
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .SetIsOriginAllowed(origing => origing == "http://localhost:4200")));
+                    .SetIsOriginAllowed(origin => origin == "http://localhost:4200")));
 
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Requistador.WebApi", Version = "v1" }));

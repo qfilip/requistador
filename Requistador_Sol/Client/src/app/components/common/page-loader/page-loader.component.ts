@@ -10,8 +10,7 @@ import { PageLoaderService } from 'src/app/services/page-loader.service';
 })
 export class PageLoaderComponent implements OnInit {
 
-    constructor(private pageLoaderService: PageLoaderService) {
-    }
+    constructor(private pageLoaderService: PageLoaderService) {}
 
     loading: boolean;
     message: string;
@@ -25,13 +24,13 @@ export class PageLoaderComponent implements OnInit {
 
 
     private manageSubscriptions() {
-        this.pageLoaderService.pageLoaderState
+        this.pageLoaderService.state
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(loading => {
                 this.loading = loading;
             });
 
-        this.pageLoaderService.pageLoaderMessage
+        this.pageLoaderService.message
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(message => {
                 if (!!message) {
@@ -39,7 +38,7 @@ export class PageLoaderComponent implements OnInit {
                 }
             });
 
-        this.pageLoaderService.pageLoaderProgressValue
+        this.pageLoaderService.progressValue
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(progressValue => {
                 if (!!progressValue) {

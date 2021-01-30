@@ -2,8 +2,18 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
-export interface IClientRequestDto
+import { eAppRequestType } from './enums';
+import { eAppRequestStatus } from './enums';
+
+export interface IAppRequestDto<TDto>
 {
+	id: any;
+	createdOn: any;
+	requestType: eAppRequestType;
+	requestStatus: eAppRequestStatus;
+	entity: TDto;
+	pendingRequestId: any;
+	pendingRequest: IAppRequestDto<TDto>;
 }
 export interface ICocktailDto
 {

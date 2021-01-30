@@ -9,10 +9,17 @@
     & > .header {
         background-color: $red-dark;
         font-weight: bold;
-        font-size: 1.3rem;
     }
 }
 
 .panel-right {
     background-color: $green-dark;
+    & > .header {
+        border: 2px solid $red-dark;
+        font-weight: bold;
+    }
+}
+
+.panel-table-options {
+    background-color: $red-dark;
 }

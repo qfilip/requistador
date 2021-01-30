@@ -25,27 +25,23 @@ export class DialogComponent implements OnInit {
     }
     
     
-    onConfirm() { this.visible = false; }
-    onDeny() {};
-    
-    isAnimationTypeOf(animationType: eDialogAnimation) {
-        console.log('inner: ', animationType);
-        console.log('option: ', this.options);
-        return animationType === this.options.dialogAnimation;
+    onConfirm() {
+        this.options.acceptFn(); 
+        this.visible = false;
     }
+
+    onDeny() {
+        this.visible = false;
+    };
 
     private setDialogOptions(options: IDialogOptions) {
         this.options = {
             header: options.header ?? 'Confirm',
-            acceptFn: options.acceptFn ?? this.acceptFnDefault,
+            acceptFn: options.acceptFn ?? function() {},
             okLabel: options.okLabel ?? 'Ok',
             cancelLabel: options.cancelLabel ?? 'Cancel',
             cancelVisible: options.cancelVisible ?? true,
             dialogAnimation: options.dialogAnimation ?? eDialogAnimation.Sign3D
         } as IDialogOptions;
-    }
-
-    private acceptFnDefault() {
-        this.visible = false;
     }
 }
