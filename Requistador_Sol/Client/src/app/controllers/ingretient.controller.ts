@@ -13,4 +13,9 @@ export class IngredientController {
         const url = urls.IngredientController_GetAll;
         return this.http.get<IIngredientDto[]>(url);
     }
+
+    create(dto: IIngredientDto): Observable<IIngredientDto> {
+        const url = urls.IngredientController_Create;
+        return this.http.post<IIngredientDto>(url, dto);
+    }
 }

@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Requistador.DataAccess.Contexts;
+using Requistador.Domain.Dtos;
+using Requistador.Domain.Entities;
+using Requistador.Logic.Commands.Request;
 using Requistador.Logic.Queries.Ingredient;
 using Requistador.WebApi.Services;
 using System;
@@ -19,6 +22,12 @@ namespace Requistador.WebApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllIngredientsQuery());
+            return Ok(result);
+        }
+
+        public async Task<IActionResult> Create([FromBody] IngredientDto dto)
+        {
+            var result = await _mediator.Send(new AddIngredientRequestCommand(dto));
             return Ok(result);
         }
     }

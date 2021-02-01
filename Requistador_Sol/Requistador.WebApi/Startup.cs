@@ -24,8 +24,9 @@ namespace Requistador.WebApi
 
             var syslogsPath = Path.Combine(environment.WebRootPath, GlobalVariables.AppLogFolder);
             var dbConnString = Path.Combine(appDbPath, GlobalVariables.AppDbName);
-            
-            _appSettings = new AppSettings(dbConnString, "");
+            var requestDbConnString = Path.Combine(environment.WebRootPath, GlobalVariables.AppRequestDbName);
+
+            _appSettings = new AppSettings(dbConnString, requestDbConnString);
         }
 
         public void ConfigureServices(IServiceCollection services)

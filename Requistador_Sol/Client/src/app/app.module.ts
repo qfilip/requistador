@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './components/common/notification/app-notification.component';
 import { NotificationService } from './services/notification.service';
+import { IngredientTableComponent } from './components/entries/ingredient/ingredient-table/ingredient-table.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { NotificationService } from './services/notification.service';
     CocktailTableComponent,
     CocktailDetailsComponent,
     EntryHomeComponent,
+    IngredientTableComponent,
   ],
   imports: [
     BrowserModule,

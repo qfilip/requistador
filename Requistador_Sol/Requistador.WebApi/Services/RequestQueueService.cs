@@ -1,32 +1,55 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using MediatR;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Requistador.DataAccess.Contexts;
 using Requistador.Domain.Base;
 using Requistador.Domain.Entities;
 using Requistador.Domain.Enumerations;
+using Requistador.Logic.Commands.Request;
+using Requistador.WebApi.AppConfiguration;
 using System;
+using System.IO;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Requistador.WebApi.Services
 {
-    public class RequestQueueService : IHostedService
+    public partial class RequestQueueService : IHostedService
     {
+        private bool _locked;
         private Timer _timer;
-        private readonly RequestDbContext _dbContext;
-        private readonly RequestResolverService<BaseEntity> _resolverService;
-        private readonly Expression<Func<AppRequest<BaseEntity>, bool>> _pendingQuery;
+        private readonly string _syslogPath;
+        private readonly AppDbContext _dbContext;
+        private readonly RequestDbContext _requestDbContext;
+        RequestResolverService<BaseEntity> _resolverService;
 
-        public RequestQueueService(RequestDbContext dbContext, RequestResolverService<BaseEntity> resolverService)
+        public RequestQueueService(
+            IWebHostEnvironment environment,
+            IServiceScopeFactory scopeFactory)
         {
-            _dbContext = dbContext;
-            _resolverService = resolverService;
-            _pendingQuery = (x) => x.RequestStatus == eAppRequestStatus.Pending;
+            _dbContext = scopeFactory
+                .CreateScope()
+                .ServiceProvider
+                .GetRequiredService<AppDbContext>();
+
+            _requestDbContext = scopeFactory
+                .CreateScope()
+                .ServiceProvider
+                .GetRequiredService<RequestDbContext>();
+
+            _resolverService = scopeFactory
+                .CreateScope()
+                .ServiceProvider
+                .GetRequiredService<RequestResolverService<BaseEntity>>();
+
+            _syslogPath = Path.Combine(environment.WebRootPath, GlobalVariables.AppLogFolder);
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(ProcessRequests, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+            _timer = new Timer(ProcessRequests, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
             return Task.CompletedTask;
         }
 
@@ -37,13 +60,17 @@ namespace Requistador.WebApi.Services
 
         private void ProcessRequests(object state)
         {
-            //Action resolveAction = async () =>
-            //{
-            //    var pendingRequests = _dbContext.FindAll(_pendingQuery);
-            //    await _resolverService.ResolveRequestsAsync(pendingRequests);
-            //};
+            Action resolveAction = async () =>
+            {
+                if(!_locked)
+                {
+                    _locked = true;
+                    await _resolverService.ResolveAppRequestsAsync();
+                    _locked = false;
+                }
+            };
 
-            //resolveAction();
+            resolveAction();
         }
     }
 }

@@ -8,10 +8,36 @@
             <button (click)="loadIngredients()" class="app-btn-green w-100-pc">Ingredients Table</button>
         </div>
     </div>
-    <div class="w3-threequarter panel panel-right flx-center">
-        <h1 class="header flx space-between align-center">
-            <div>Table:&nbsp;</div>
-            <div>{{ currentTable }}</div>
-        </h1>
+    <div class="w3-threequarter panel panel-right flx content-center">
+        <div>
+            <h1 class="header flx space-between">
+                <div>Table:&nbsp;</div>
+                <div>{{ currentTable }}</div>
+            </h1>
+            <ng-container [ngSwitch]="currentTableType">
+                
+                <ng-container *ngSwitchCase="tableType.None">
+                    <ng-container *ngTemplateOutlet="blank"></ng-container>
+                </ng-container>
+                
+                <ng-container *ngSwitchCase="tableType.Cocktail">
+                    <ng-container *ngTemplateOutlet="cocktailTable"></ng-container>
+                </ng-container>
+                
+                <ng-container *ngSwitchCase="tableType.Ingredient">
+                    <ng-container *ngTemplateOutlet="ingredientTable"></ng-container>
+                </ng-container>
+
+            </ng-container>
+        </div>
     </div>
 </div>
+
+<ng-template #blank></ng-template>
+
+<ng-template #cocktailTable>
+    <cocktail-table></cocktail-table>
+</ng-template>
+<ng-template #ingredientTable>
+    <ingredient-table></ingredient-table>
+</ng-template>

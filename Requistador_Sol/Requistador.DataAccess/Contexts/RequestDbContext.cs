@@ -24,7 +24,7 @@ namespace Requistador.DataAccess.Contexts
                 //if (db != null)
                 //    Context = db;
                 _dbPath = configs.Value.DatabasePath;
-                _collection = "client-requests";
+                _collection = "clientRequests";
             }
             catch (Exception ex)
             {
@@ -65,13 +65,16 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
-        public void Insert<TEntity>(TEntity entity) where TEntity : AppRequest<BaseEntity>
+        public Guid Insert<TEntity>(TEntity entity) where TEntity : AppRequest<BaseEntity>
         {
+            BsonValue result;
             using (var db = new LiteDatabase(_dbPath))
             {
                 var collection = db.GetCollection<TEntity>(_collection);
-                collection.Insert(entity);
+                result = collection.Insert(entity);
             }
+
+            return result.AsGuid;
         }
 
         public void InsertMany<TEntity>(IEnumerable<TEntity> entity) where TEntity : AppRequest<BaseEntity>

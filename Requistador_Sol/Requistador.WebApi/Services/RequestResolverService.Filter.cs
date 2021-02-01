@@ -8,17 +8,38 @@ using Requistador.Logic.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Requistador.WebApi.Services
 {
-    public partial class RequestResolverService<T> where T : BaseEntity
+    public partial class RequestResolverService<T> where T : BaseEntity, new()
     {
         private readonly IMediator _mediator;
-        private readonly RequestDbContext _dbContext;
-        public RequestResolverService(RequestDbContext dbContext, IMediator mediator)
+        private readonly AppDbContext _appDbContext;
+        private readonly RequestDbContext _requestDbContext;
+        private readonly Expression<Func<AppRequest<BaseEntity>, bool>> _pendingRequestsQueryExpr;
+        
+        public RequestResolverService(RequestDbContext requestDbContext, AppDbContext appDbContext, IMediator mediator)
         {
-            _dbContext = dbContext;
+            _pendingRequestsQueryExpr = (x) => x.RequestStatus == eAppRequestStatus.Pending;
+            _requestDbContext = requestDbContext;
+            _appDbContext = appDbContext;
+            _mediator = mediator;
+        }
+
+        public async Task ResolveAppRequestsAsync()
+        {
+            var pendingRequests = _requestDbContext.FindAll(_pendingRequestsQueryExpr);
+            var pendingRequestsGeneric = new List<AppRequest<T>>();
+
+            foreach (var request in pendingRequests)
+            {
+                var genericRequest = MapToGenericRequest(request);
+                pendingRequestsGeneric.Add(genericRequest);
+            }
+
+            await ResolveRequestsAsync(pendingRequestsGeneric);
         }
 
         public async Task ResolveRequestsAsync(IEnumerable<AppRequest<T>> pendingRequests)
@@ -36,7 +57,9 @@ namespace Requistador.WebApi.Services
             systemRequests = systemRequests.OrderBy(x => x.CreatedOn).ToList();
             
             var castedRequests = systemRequests as IEnumerable<AppRequest<BaseEntity>>;
-            _dbContext.InsertMany(castedRequests);
+            
+            _requestDbContext.InsertMany(castedRequests);
+            await _appDbContext.SaveChangesAsync();
         }
 
         private async Task<IEnumerable<AppRequest<T>>> ResolveAddRequestsAsync(IEnumerable<AppRequest<T>> addRequests)
@@ -154,6 +177,30 @@ namespace Requistador.WebApi.Services
                 RequestType = clientRequest.RequestType,
                 RequestStatus = resultStatus
             };
+        }
+
+        private AppRequest<T> MapToGenericRequest(AppRequest<BaseEntity> request)
+        {
+            var genericRequest = new AppRequest<T>()
+            {
+                Id = request.Id,
+                CreatedOn = request.CreatedOn,
+                RequestStatus = request.RequestStatus,
+                RequestType = request.RequestType,
+                PendingRequestId = request.PendingRequestId
+            };
+
+            if (request.Entity != null)
+            {
+                genericRequest.Entity = request.Entity as T;
+            }
+
+            if (request.PendingRequest != null)
+            {
+                genericRequest.PendingRequest = MapToGenericRequest(request.PendingRequest);
+            }
+
+            return genericRequest;
         }
     }
 }
