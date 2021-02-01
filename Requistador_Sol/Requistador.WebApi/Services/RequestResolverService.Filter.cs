@@ -26,7 +26,7 @@ namespace Requistador.WebApi.Services
             _mediator = mediator;
         }
 
-        private async Task ResolveAppRequestsAsync()
+        public async Task ResolveAppRequestsAsync()
         {
             var allRequests = _requestDbContext.GetAll<AppRequest<BaseEntity>>();
             
@@ -58,8 +58,9 @@ namespace Requistador.WebApi.Services
             
             var castedRequests = systemRequests as IEnumerable<AppRequest<BaseEntity>>;
             
-            _requestDbContext.InsertMany(castedRequests);
+            // add try catch here? Reject and log requests if SaveChanges() fails?
             await _appDbContext.SaveChangesAsync();
+            _requestDbContext.InsertMany(castedRequests);
         }
 
         private async Task<IEnumerable<AppRequest<T>>> ResolveAddRequestsAsync(IEnumerable<AppRequest<T>> addRequests)
