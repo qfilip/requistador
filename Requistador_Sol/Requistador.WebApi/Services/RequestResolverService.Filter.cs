@@ -18,19 +18,19 @@ namespace Requistador.WebApi.Services
         private readonly IMediator _mediator;
         private readonly AppDbContext _appDbContext;
         private readonly RequestDbContext _requestDbContext;
-        private readonly Expression<Func<AppRequest<BaseEntity>, bool>> _pendingRequestsQueryExpr;
-        
+
         public RequestResolverService(RequestDbContext requestDbContext, AppDbContext appDbContext, IMediator mediator)
         {
-            _pendingRequestsQueryExpr = (x) => x.RequestStatus == eAppRequestStatus.Pending;
             _requestDbContext = requestDbContext;
             _appDbContext = appDbContext;
             _mediator = mediator;
         }
 
-        public async Task ResolveAppRequestsAsync()
+        private async Task ResolveAppRequestsAsync()
         {
-            var pendingRequests = _requestDbContext.FindAll(_pendingRequestsQueryExpr);
+            var allRequests = _requestDbContext.GetAll<AppRequest<BaseEntity>>();
+            
+            var pendingRequests = FilterUnresolvedPendingRequests(allRequests);
             var pendingRequestsGeneric = new List<AppRequest<T>>();
 
             foreach (var request in pendingRequests)
@@ -42,7 +42,7 @@ namespace Requistador.WebApi.Services
             await ResolveRequestsAsync(pendingRequestsGeneric);
         }
 
-        public async Task ResolveRequestsAsync(IEnumerable<AppRequest<T>> pendingRequests)
+        private async Task ResolveRequestsAsync(IEnumerable<AppRequest<T>> pendingRequests)
         {
             var systemRequests = new List<AppRequest<T>>();
             
@@ -201,6 +201,24 @@ namespace Requistador.WebApi.Services
             }
 
             return genericRequest;
+        }
+
+        private IEnumerable<AppRequest<BaseEntity>> FilterUnresolvedPendingRequests(IEnumerable<AppRequest<BaseEntity>> requests)
+        {
+            var pendingRequestIds = requests
+                .Where(x => x.PendingRequestId == Guid.Empty)
+                .Select(x => x.Id);
+
+            var resolvedRequestIds = requests
+                .Where(x => x.PendingRequestId != Guid.Empty)
+                .Select(x => x.PendingRequestId);
+
+            var unresolvedRequestIds = pendingRequestIds.Except(resolvedRequestIds);
+            var unresolvedRequests = requests
+                .Where(x => unresolvedRequestIds.Contains(x.Id));
+
+            
+            return unresolvedRequests;
         }
     }
 }

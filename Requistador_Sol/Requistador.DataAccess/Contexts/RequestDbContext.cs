@@ -54,6 +54,17 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
+        public IEnumerable<TEntity> GetAll<TEntity>() where TEntity : AppRequest<BaseEntity>
+        {
+            using (var db = new LiteDatabase(_dbPath))
+            {
+                var collection = db.GetCollection<TEntity>(_collection);
+                var result = collection.FindAll().ToList();
+
+                return result;
+            }
+        } 
+
         public IEnumerable<TEntity> FindAll<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : AppRequest<BaseEntity>
         {
             using (var db = new LiteDatabase(_dbPath))
