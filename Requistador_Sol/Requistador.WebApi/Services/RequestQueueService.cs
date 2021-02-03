@@ -44,7 +44,7 @@ namespace Requistador.WebApi.Services
                 .ServiceProvider
                 .GetRequiredService<RequestResolverService<BaseEntity>>();
 
-            _syslogPath = Path.Combine(environment.WebRootPath, GlobalVariables.AppLogFolder);
+            _syslogPath = Path.Combine(environment.WebRootPath, AppConstants.AppLogFolder);
         }
 
         public Task StartAsync(CancellationToken cancellationToken)

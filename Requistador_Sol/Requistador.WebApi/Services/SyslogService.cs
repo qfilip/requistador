@@ -10,12 +10,12 @@ namespace Requistador.WebApi.Services
         private readonly string _syslogPath;
         public SyslogService(IWebHostEnvironment environment)
         {
-            _syslogPath = Path.Combine(environment.WebRootPath, GlobalVariables.AppLogFolder);
+            _syslogPath = Path.Combine(environment.WebRootPath, AppConstants.AppLogFolder);
         }
 
         public void CreateTestLog()
         {
-            var filename = $"{DateTime.UtcNow.ToString(GlobalVariables.Format_SyslogTime)}_Test.txt";
+            var filename = $"{DateTime.UtcNow.ToString(AppConstants.Format_SyslogTime)}_Test.txt";
             var message = "Test log successful";
             var filepath = Path.Combine(_syslogPath, filename);
 

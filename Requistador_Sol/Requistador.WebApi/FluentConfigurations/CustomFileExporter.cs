@@ -33,7 +33,7 @@ namespace Requistador.WebApi.FluentConfigurations
                     endpoints.Add(MakeEndpoint(controller.Name, methodName));
             }
 
-            var path = Path.Combine(ExportDir, GlobalVariables.ClientFile_ControllerMethods);
+            var path = Path.Combine(ExportDir, AppConstants.Client_File_ControllerMethods);
             if (File.Exists(path))
                 File.Delete(path);
 
@@ -51,7 +51,7 @@ namespace Requistador.WebApi.FluentConfigurations
         private static string MakeEndpoint(string controller, string method)
         {
             var urlControllerPath = controller.Replace("Controller", string.Empty);
-            return $"export const {controller}_{method} = '{GlobalVariables.AppUrl}/{urlControllerPath}/{method}';";
+            return $"export const {controller}_{method} = '{AppConstants.AppUrl}/{urlControllerPath}/{method}';";
         }
     }
 }

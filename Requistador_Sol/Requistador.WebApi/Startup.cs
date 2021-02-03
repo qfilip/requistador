@@ -20,11 +20,11 @@ namespace Requistador.WebApi
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
-            string appDbPath = GlobalVariables.AppDbSourcePrefix + environment.WebRootPath;
+            string appDbPath = AppConstants.AppDbSourcePrefix + environment.WebRootPath;
 
-            var syslogsPath = Path.Combine(environment.WebRootPath, GlobalVariables.AppLogFolder);
-            var dbConnString = Path.Combine(appDbPath, GlobalVariables.AppDbName);
-            var requestDbConnString = Path.Combine(environment.WebRootPath, GlobalVariables.AppRequestDbName);
+            var syslogsPath = Path.Combine(environment.WebRootPath, AppConstants.AppLogFolder);
+            var dbConnString = Path.Combine(appDbPath, AppConstants.AppDbName);
+            var requestDbConnString = Path.Combine(environment.WebRootPath, AppConstants.AppRequestDbName);
 
             _appSettings = new AppSettings(dbConnString, requestDbConnString);
         }
@@ -40,14 +40,7 @@ namespace Requistador.WebApi
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             }); ;
             
-            WebApiServiceRegistry.AddApiServices(services, _appSettings);
-            
-            services.AddCors(options =>
-                options.AddDefaultPolicy(builder =>
-                    builder
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .SetIsOriginAllowed(origin => origin == "http://localhost:4200")));
+            ApiServiceRegistry.RegisterServices(services, _appSettings);
 
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Requistador.WebApi", Version = "v1" }));
@@ -65,6 +58,8 @@ namespace Requistador.WebApi
 
             app.UseRouting();
             app.UseCors();
+
+            // app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

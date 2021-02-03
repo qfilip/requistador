@@ -17,7 +17,7 @@ namespace Requistador.WebApi.FluentConfigurations
             CustomFileExporter.ExportApiEndpoints();
             
             var dtos = Assembly.GetAssembly(typeof(Domain.Base.BaseDto)).ExportedTypes
-                .Where(i => i.Namespace.StartsWith(GlobalVariables.NMSP_DomainDtos))
+                .Where(i => i.Namespace.StartsWith(AppConstants.NMSP_DomainDtos))
                 .OrderBy(i => i.Name)
                 .OrderBy(i => i.Name != nameof(Domain.Base.BaseDto))
                 .ToArray();
