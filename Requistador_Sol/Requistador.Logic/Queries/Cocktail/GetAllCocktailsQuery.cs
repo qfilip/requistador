@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Requistador.DataAccess.Contexts;
 using Requistador.Domain.Dtos;

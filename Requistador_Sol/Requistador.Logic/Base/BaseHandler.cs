@@ -1,13 +1,6 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using MediatR;
 using Requistador.DataAccess.Contexts;
-using Requistador.Domain.Base;
-using Requistador.Domain.Dtos;
-using Requistador.Domain.Entities;
-using Requistador.Domain.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

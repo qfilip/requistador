@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using Requistador.DataAccess.Contexts;
 using Requistador.Domain.Base;
 using Requistador.Domain.Dtos;

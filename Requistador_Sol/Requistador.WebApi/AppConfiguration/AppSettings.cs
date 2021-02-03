@@ -1,4 +1,8 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Mapster;
+using Microsoft.IdentityModel.Tokens;
+using Requistador.Domain.Base;
+using Requistador.Domain.Dtos;
+using Requistador.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +24,25 @@ namespace Requistador.WebApi.AppConfiguration
         
         public static SymmetricSecurityKey GetAppKey() =>
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AppConstants.Auth_SecretKey));
+
+        public static TypeAdapterConfig GetMapsterConfiguration()
+        {
+            var conf = new TypeAdapterConfig();
+            
+            conf.NewConfig<BaseEntity, BaseDto>();
+            conf.NewConfig<BaseDto, BaseEntity>();
+
+            conf.NewConfig<Cocktail, CocktailDto>();
+            conf.NewConfig<CocktailDto, Cocktail>();
+
+            conf.NewConfig<Ingredient, IngredientDto>();
+            conf.NewConfig<IngredientDto, Ingredient>();
+
+            conf.NewConfig<Excerpt, ExcerptDto>();
+            conf.NewConfig<ExcerptDto, Excerpt>();
+
+            
+            return conf;
+        }
     }
 }

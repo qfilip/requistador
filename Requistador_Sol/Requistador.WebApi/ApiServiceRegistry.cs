@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -44,7 +44,10 @@ namespace Requistador.WebApi
         private static void ConfigureImportedServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
-            services.AddAutoMapper(typeof(MappingProfiles));
+            //services.AddAutoMapper(typeof(MappingProfiles));
+            
+            services.AddSingleton(AppSettings.GetMapsterConfiguration());
+            services.AddTransient<IMapper, ServiceMapper>();
         }
 
         private static void ConfigureCors(IServiceCollection services)
