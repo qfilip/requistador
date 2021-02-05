@@ -18,6 +18,7 @@ namespace Requistador.WebApi.Services
 {
     public partial class RequestQueueService : IHostedService
     {
+        // TaskCreationOptions // check this
         private bool _locked;
         private Timer _timer;
         private readonly string _syslogPath;

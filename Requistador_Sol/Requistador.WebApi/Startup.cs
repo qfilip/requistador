@@ -23,10 +23,11 @@ namespace Requistador.WebApi
             string appDbPath = AppConstants.AppDbSourcePrefix + environment.WebRootPath;
 
             var syslogsPath = Path.Combine(environment.WebRootPath, AppConstants.AppLogFolder);
-            var dbConnString = Path.Combine(appDbPath, AppConstants.AppDbName);
+            var appDbConnString = Path.Combine(appDbPath, AppConstants.AppDbName);
             var requestDbConnString = Path.Combine(environment.WebRootPath, AppConstants.AppRequestDbName);
+            var identityDbConnString = Path.Combine(environment.WebRootPath, AppConstants.AppIdentityDbName); ;
 
-            _appSettings = new AppSettings(dbConnString, requestDbConnString);
+            _appSettings = new AppSettings(appDbConnString, requestDbConnString, identityDbConnString);
         }
 
         public void ConfigureServices(IServiceCollection services)

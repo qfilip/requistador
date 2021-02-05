@@ -4,6 +4,8 @@
 
 import { eAppRequestType } from './enums';
 import { eAppRequestStatus } from './enums';
+import { eUserRole } from './enums';
+import { eUserStatus } from './enums';
 
 export interface IAppRequestDto<TDto>
 {
@@ -32,4 +34,12 @@ export interface IIngredientDto
 	name: string;
 	strength: number;
 	excerpts: IExcerptDto[];
+}
+export interface IAppUserDto
+{
+	id: any;
+	role: eUserRole;
+	status: eUserStatus;
+	username: string;
+	password: string;
 }

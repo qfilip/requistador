@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requistador.WebApi", "Requistador.WebApi\Requistador.WebApi.csproj", "{78DC17FC-2610-4731-BAC6-BC7EF158114C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Requistador.Logic", "Requistador.Logic\Requistador.Logic.csproj", "{31F13A7D-7E4C-46DC-82C8-BEC20182819C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requistador.Logic", "Requistador.Logic\Requistador.Logic.csproj", "{31F13A7D-7E4C-46DC-82C8-BEC20182819C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Requistador.Domain", "Requistador.Domain\Requistador.Domain.csproj", "{4528EE2F-017D-4D9D-A897-AB3FE1EEB147}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requistador.Domain", "Requistador.Domain\Requistador.Domain.csproj", "{4528EE2F-017D-4D9D-A897-AB3FE1EEB147}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Requistador.DataAccess", "Requistador.DataAccess\Requistador.DataAccess.csproj", "{46DBB707-E7D3-4D1B-BA08-4D338C698DDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requistador.DataAccess", "Requistador.DataAccess\Requistador.DataAccess.csproj", "{46DBB707-E7D3-4D1B-BA08-4D338C698DDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Requistador.Identity", "Requistador.Identity\Requistador.Identity.csproj", "{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{46DBB707-E7D3-4D1B-BA08-4D338C698DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46DBB707-E7D3-4D1B-BA08-4D338C698DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46DBB707-E7D3-4D1B-BA08-4D338C698DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

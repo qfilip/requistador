@@ -18,3 +18,12 @@ export enum eEntityStatus {
 	Active = 0, 
 	Deleted = 1
 }
+export enum eUserStatus { 
+	Active = 0, 
+	Inactive = 1
+}
+export enum eUserRole { 
+	None = 0, 
+	User = 1, 
+	Admin = 2
+}

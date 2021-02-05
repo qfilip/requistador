@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Requistador.DataAccess\Requistador.DataAccess.csproj" />
     <ProjectReference Include="..\Requistador.Domain\Requistador.Domain.csproj" />
+    <ProjectReference Include="..\Requistador.Identity\Requistador.Identity.csproj" />
     <ProjectReference Include="..\Requistador.Logic\Requistador.Logic.csproj" />
   </ItemGroup>
 

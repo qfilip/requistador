@@ -3,6 +3,8 @@ using Microsoft.IdentityModel.Tokens;
 using Requistador.Domain.Base;
 using Requistador.Domain.Dtos;
 using Requistador.Domain.Entities;
+using Requistador.Identity.Dtos;
+using Requistador.Identity.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +15,16 @@ namespace Requistador.WebApi.AppConfiguration
 {
     public class AppSettings
     {
-        public AppSettings(string appDbPath, string liteDbPath)
+        public AppSettings(string appDbPath, string requestDbPath, string identityDbPath)
         {
-            DbConnectionString = appDbPath;
-            LiteDbPath = liteDbPath;
+            AppDbConnString = appDbPath;
+            RequestDbConnString = requestDbPath;
+            IdentityDbConnString = identityDbPath;
         }
 
-        public string DbConnectionString { get; private set; }
-        public string LiteDbPath { get; private set; }
+        public string IdentityDbConnString { get; private set; }
+        public string AppDbConnString { get; private set; }
+        public string RequestDbConnString { get; private set; }
         
         public static SymmetricSecurityKey GetAppKey() =>
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AppConstants.Auth_SecretKey));
@@ -28,7 +32,15 @@ namespace Requistador.WebApi.AppConfiguration
         public static TypeAdapterConfig GetMapsterConfiguration()
         {
             var conf = new TypeAdapterConfig();
-            
+
+            DefineDomainMapping(conf);
+            DefineIdentityMapping(conf);
+
+            return conf;
+        }
+
+        private static void DefineDomainMapping(TypeAdapterConfig conf)
+        {
             conf.NewConfig<BaseEntity, BaseDto>();
             conf.NewConfig<BaseDto, BaseEntity>();
 
@@ -40,9 +52,12 @@ namespace Requistador.WebApi.AppConfiguration
 
             conf.NewConfig<Excerpt, ExcerptDto>();
             conf.NewConfig<ExcerptDto, Excerpt>();
+        }
 
-            
-            return conf;
+        private static void DefineIdentityMapping(TypeAdapterConfig conf)
+        {
+            conf.NewConfig<AppUser, AppUserDto>();
+            conf.NewConfig<AppUserDto, AppUser>();
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Requistador.DataAccess.Contexts;
 using Requistador.DataAccess.Extensions;
 using Requistador.Domain.Base;
+using Requistador.Identity.Context;
 using Requistador.Logic.Base;
 using Requistador.WebApi.AppConfiguration;
 using Requistador.WebApi.Services;
@@ -30,8 +31,9 @@ namespace Requistador.WebApi
 
         private static void ConfigureDatabases(IServiceCollection services, AppSettings appSettings)
         {
-            services.AddRequestsDb(appSettings.LiteDbPath);
-            services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlite(appSettings.DbConnectionString));
+            services.AddRequestsDb(appSettings.RequestDbConnString);
+            services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlite(appSettings.AppDbConnString));
+            services.AddDbContext<IdentityDbContext>(cfg => cfg.UseSqlite(appSettings.IdentityDbConnString));
         }
 
         private static void ConfigureAppServices(IServiceCollection services)
@@ -62,6 +64,7 @@ namespace Requistador.WebApi
 
         private static void ConfigureAuthentication(IServiceCollection services)
         {
+            services.AddScoped<AuthService>();
             // #r nuget: Microsoft.AspNetCore.Authentication.JwtBearer
             services.AddAuthentication(cfg =>
             {

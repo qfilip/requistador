@@ -1,11 +1,13 @@
 ﻿using Reinforced.Typings.Fluent;
+using Requistador.Domain.Base;
 using Requistador.Domain.Enumerations;
+using Requistador.Identity.Dtos;
+using Requistador.Identity.Enumerations;
 using Requistador.WebApi.AppConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Requistador.WebApi.FluentConfigurations
 {
@@ -15,12 +17,14 @@ namespace Requistador.WebApi.FluentConfigurations
         {
             CustomFileExporter.ExportDir = builder.Context.TargetDirectory;
             CustomFileExporter.ExportApiEndpoints();
-            
-            var dtos = Assembly.GetAssembly(typeof(Domain.Base.BaseDto)).ExportedTypes
-                .Where(i => i.Namespace.StartsWith(AppConstants.NMSP_DomainDtos))
-                .OrderBy(i => i.Name)
-                .OrderBy(i => i.Name != nameof(Domain.Base.BaseDto))
-                .ToArray();
+
+            var dtos = new List<Type>();
+
+            var domainDtos = GetTypesForExport<BaseDto>(AppConstants.NMSP_DomainDtos);
+            var identityDtos = GetTypesForExport<AppUserDto>(AppConstants.NMSP_IdentityDtos);
+
+            dtos.AddRange(domainDtos);
+            dtos.AddRange(identityDtos);
 
             builder.Global(cfg => cfg.CamelCaseForProperties().UseModules());
 
@@ -29,11 +33,27 @@ namespace Requistador.WebApi.FluentConfigurations
                 .ExportTo("interfaces.ts"));
 
             builder.ExportAsEnums(new Type[] {
+                // domain
                 typeof(eAppRequestStatus),
                 typeof(eAppRequestType),
-                typeof(eEntityStatus)
+                typeof(eEntityStatus),
+
+                // identity
+                typeof(eUserStatus),
+                typeof(eUserRole)
             },
             cfg => cfg.ExportTo("enums.ts"));
+        }
+
+        private static Type[] GetTypesForExport<T>(string namespaceFilter)
+        {
+            return Assembly
+                .GetAssembly(typeof(T))
+                .ExportedTypes
+                .Where(i => i.Namespace.StartsWith(namespaceFilter))
+                .OrderBy(i => i.Name)
+                .OrderBy(i => i.Name != nameof(T))
+                .ToArray();
         }
     }
 }

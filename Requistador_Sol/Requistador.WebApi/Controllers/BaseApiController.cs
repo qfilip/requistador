@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Requistador.DataAccess.Contexts;
 using Requistador.WebApi.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Requistador.WebApi.Controllers
 {
@@ -17,21 +13,27 @@ namespace Requistador.WebApi.Controllers
     [Route("[controller]/[action]")]
     public class BaseApiController : ControllerBase
     {
-        protected readonly IMediator _mediator;
-        protected readonly AppDbContext _dbContext;
-        protected readonly SyslogService _syslogService;
+        private IMediator _mediator;
+        private AppDbContext _dbContext;
+        private SyslogService _syslogService;
 
-        public BaseApiController(IMediator mediator, AppDbContext dbContext, SyslogService syslogService)
-        {
-            _mediator = mediator;
-            _dbContext = dbContext;
-            _syslogService = syslogService;
-        }
+        public IMediator Mediator =>
+            _mediator ?? 
+            (IMediator)HttpContext.RequestServices.GetService(typeof(IMediator));
+
+        public AppDbContext AppDbContext =>
+            _dbContext ??
+            (AppDbContext)HttpContext.RequestServices.GetService(typeof(AppDbContext));
+
+        public SyslogService SyslogService =>
+            _syslogService ??
+            (SyslogService)HttpContext.RequestServices.GetService(typeof(SyslogService));
+
 
         [HttpGet]
         public IActionResult TestLogging()
         {
-            _syslogService.CreateTestLog();
+            SyslogService.CreateTestLog();
             return Ok();
         }
     }
