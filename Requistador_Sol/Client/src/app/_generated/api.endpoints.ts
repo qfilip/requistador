@@ -1,4 +1,10 @@
-export const AccountController_Login = 'http://localhost:5655/Account/Login';
-export const CocktailController_GetAll = 'http://localhost:5655/Cocktail/GetAll';
-export const IngredientController_GetAll = 'http://localhost:5655/Ingredient/GetAll';
-export const IngredientController_Create = 'http://localhost:5655/Ingredient/Create';
+// Accounts
+export const Accounts_Login = 'http://localhost:3274/Account/Login';
+
+// Cocktails
+export const Cocktails_GetAll = 'http://localhost:3274/Cocktail/GetAll';
+
+// Ingredients
+export const Ingredients_GetAll = 'http://localhost:3274/Ingredient/GetAll';
+export const Ingredients_Create = 'http://localhost:3274/Ingredient/Create';
+

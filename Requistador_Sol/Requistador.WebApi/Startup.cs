@@ -6,28 +6,18 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Requistador.WebApi.AppConfiguration;
-using System.IO;
-using System.Reflection;
+using Requistador.WebApi.AppConfiguration.Settings;
 
 namespace Requistador.WebApi
 {
     public class Startup
     {
-        private readonly AppSettings _appSettings;
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
-            string appDbPath = AppConstants.AppDbSourcePrefix + environment.WebRootPath;
-
-            var syslogsPath = Path.Combine(environment.WebRootPath, AppConstants.AppLogFolder);
-            var appDbConnString = Path.Combine(appDbPath, AppConstants.AppDbName);
-            var requestDbConnString = Path.Combine(environment.WebRootPath, AppConstants.AppRequestDbName);
-            var identityDbConnString = Path.Combine(environment.WebRootPath, AppConstants.AppIdentityDbName); ;
-
-            _appSettings = new AppSettings(appDbConnString, requestDbConnString, identityDbConnString);
+            new AppSettings(environment);
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -41,7 +31,7 @@ namespace Requistador.WebApi
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             }); ;
             
-            ApiServiceRegistry.RegisterServices(services, _appSettings);
+            ApiServiceRegistry.RegisterServices(services);
 
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Requistador.WebApi", Version = "v1" }));

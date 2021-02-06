@@ -10,12 +10,12 @@ export class IngredientController {
     constructor(private http: HttpClient) {}
 
     getAll(): Observable<IIngredientDto[]> {
-        const url = urls.IngredientController_GetAll;
+        const url = urls.Ingredients_GetAll;
         return this.http.get<IIngredientDto[]>(url);
     }
 
     create(dto: IIngredientDto): Observable<IIngredientDto> {
-        const url = urls.IngredientController_Create;
+        const url = urls.Ingredients_Create;
         return this.http.post<IIngredientDto>(url, dto);
     }
 }

@@ -1,0 +1,23 @@
+{
+    "Name": "Requistador Identity Key Pairs",
+    "PublicKey": {
+        "D": null,
+        "DP": null,
+        "DQ": null,
+        "Exponent": "AQAB",
+        "InverseQ": null,
+        "Modulus": "zuySzKgqo+8NNdveRHmbGGQzMM0o13oied6Vh/yd3PCjA4hzoKVGyncGDXQcNMOzp6CZJilzDlXx7uB78j2Hpm6rR14ThH54huE7UDrXIQS8NrKx4Hztxxuww1k0IPVjZY/aw3fIDAgBQUZmZ3h7+v6bFPE1RVZLWI9IypVWRSbtVnAi/aT/yR4SqDbG0TEbrM1pRkF39FulTmcPeeXAp8/+SZT3YVBPDs0ZoC+tDLFJs0VsGe5oGw7rM2jXj79Sy0NLFmJMOzhYxHuqpwx/t+D8/a+kxIrJFc87jgekHig0rs8JV0ei9IrlGKUfivzF8FELh9rok5GcAq+k0HlPtQ==",
+        "P": null,
+        "Q": null
+    },
+    "PrivateKey": {
+        "D": "zOzt1VEWKZQteRFuZlIoj1dsewAzWnLSge82F57OmGiYiH8yQ/5qxUhq7hf3dyn5WiFqiqiyEZh8KR6YoabeGK2xYtSAb87wfmPA4gvj0gdmfqUqFDClK3L48/376kgbUBHPjZWqwH+M/qBB+mcQIdrUq0DWiPyVUfdVF4weDAxhNYJzxypLUqjBSbRbMuz5OMYAVsX29BUx5C5ked9mmHychMI1JO3D6+THS4ltP4Bt0lAk6F4+gLVQnVTlpyRHTRZr1xr1IFWZrjV6Pbs2XlMQtpwN4CkPe5qYUk7xbvGvAr/Pugd/x/yXAINtArN37TXfWcr5uJSZZhZZ2XPgYQ==",
+        "DP": "zlfk6C5qZbreWqHdv60M5/VkhUdMqNkLCM7/1trc+pCq9E+mrApuPYVgxto4YpwCokV/bFEB6mum/OZdu62kWr2Zk7ul+evb9mUJWPeE67i7lal3dg4Akdd/6XEw5zRuyna7JcQB4enQEwqiSz6h74SBZbvpJ8+DZYQWzc9HxOE=",
+        "DQ": "ZuCHOdiraxab+7EfjkKeGruxwBOaI3BbcNE+/bK58NbxZoXhG2j0HzrzIWG0kBKaFZ9R3SARtJl9/LvnHXRHc7pgsfgvx93gD8C7fhsYkoa36hw/if7OyywIq4NFE5bYb7wWSxpJ5mM1YviJP5msZWjBnioXrJpIqPHbxzd8bEs=",
+        "Exponent": "AQAB",
+        "InverseQ": "BzBl87GEP7o8Xc18EOTPmOZgYWAdNxnMj/RFSmiomARo5F2cd+wu5z/l0CMg1GbbS4ntASZDw7OEKiuBKq0uFtzlmQpmyvdg2g63D0ol4AZ+nkQOviP3pkvyMX+Xq7d6j5b+vFjn4SMVr8FUgXade3DndnA/8tFwEj9u2RhZO5Q=",
+        "Modulus": "zuySzKgqo+8NNdveRHmbGGQzMM0o13oied6Vh/yd3PCjA4hzoKVGyncGDXQcNMOzp6CZJilzDlXx7uB78j2Hpm6rR14ThH54huE7UDrXIQS8NrKx4Hztxxuww1k0IPVjZY/aw3fIDAgBQUZmZ3h7+v6bFPE1RVZLWI9IypVWRSbtVnAi/aT/yR4SqDbG0TEbrM1pRkF39FulTmcPeeXAp8/+SZT3YVBPDs0ZoC+tDLFJs0VsGe5oGw7rM2jXj79Sy0NLFmJMOzhYxHuqpwx/t+D8/a+kxIrJFc87jgekHig0rs8JV0ei9IrlGKUfivzF8FELh9rok5GcAq+k0HlPtQ==",
+        "P": "4VNG6RUrA6O+2J8feBhZobC/nnSCJoQ2vkBTspVpiQhrCOrjy4WJsOpbpECyQGCGlCJEmPJXv36s13L5zFDxXMIMfsJ7NlVnZ/JZZaArjmyuxwi5OWuWfLlwRdKorYKnNDvPQXJZS1P0P3LREfQLY70NWiUN3szLD4Y6oi8u+QM=",
+        "Q": "6xgBBV0j7TOGFgW5Wd0Quy9FAgVAKcw8GltZ2kG2fwfLfX1eLQ+bq0MsoEEJhcEo26xWVwyxGwfntFIxYAQK9jA5YcdVQaaJ/6r6ckNYxQRZ4NktDb2l80vUCtqc05crLqCRdQ6V85oqa3kbN8Dogag+sHjhOBWKrrZD+aNJiuc="
+    }
+}

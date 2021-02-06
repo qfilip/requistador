@@ -10,17 +10,17 @@ using Requistador.Domain.Base;
 using Requistador.Identity.Context;
 using Requistador.Logic.Base;
 using Requistador.WebApi.AppConfiguration;
+using Requistador.WebApi.AppConfiguration.Settings;
 using Requistador.WebApi.Services;
 using System.Reflection;
-using System.Text;
 
 namespace Requistador.WebApi
 {
     public static class ApiServiceRegistry
     {
-        public static void RegisterServices(IServiceCollection services, AppSettings appSettings)
+        public static void RegisterServices(IServiceCollection services)
         {
-            ConfigureDatabases(services, appSettings);
+            ConfigureDatabases(services);
             ConfigureAppServices(services);
             ConfigureImportedServices(services);
 
@@ -29,11 +29,11 @@ namespace Requistador.WebApi
             // ConfigureAuthentication(services);
         }
 
-        private static void ConfigureDatabases(IServiceCollection services, AppSettings appSettings)
+        private static void ConfigureDatabases(IServiceCollection services)
         {
-            services.AddRequestsDb(appSettings.RequestDbConnString);
-            services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlite(appSettings.AppDbConnString));
-            services.AddDbContext<IdentityDbContext>(cfg => cfg.UseSqlite(appSettings.IdentityDbConnString));
+            services.AddRequestsDb(AppSettings.GetRequestDbConnection());
+            services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlite(AppSettings.GetAppDbConnection()));
+            services.AddDbContext<IdentityDbContext>(cfg => cfg.UseSqlite(AppSettings.GetIdentityDbConnection()));
         }
 
         private static void ConfigureAppServices(IServiceCollection services)

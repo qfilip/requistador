@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Requistador.WebApi.FluentConfigurations
 {
@@ -29,8 +27,13 @@ namespace Requistador.WebApi.FluentConfigurations
                     .Select(x => x.Name)
                     .Where(x => !methodsToExclude.Contains(x));
 
+                endpoints.Add(CreateComment(controller.Name));
+
                 foreach (var methodName in methodNames)
                     endpoints.Add(MakeEndpoint(controller.Name, methodName));
+
+                // add new line for readabilty
+                endpoints.Add(string.Empty);
             }
 
             var path = Path.Combine(ExportDir, AppConstants.Client_File_ControllerMethods);
@@ -48,10 +51,16 @@ namespace Requistador.WebApi.FluentConfigurations
             return assembly.GetTypes().Where(t => t.IsSubclassOf(baseType));
         }
 
+        private static string CreateComment(string controller)
+        {
+            controller = controller.Replace("Controller", string.Empty);
+            return $"// {controller}s";
+        }
+
         private static string MakeEndpoint(string controller, string method)
         {
-            var urlControllerPath = controller.Replace("Controller", string.Empty);
-            return $"export const {controller}_{method} = '{AppConstants.AppUrl}/{urlControllerPath}/{method}';";
+            controller = controller.Replace("Controller", string.Empty);
+            return $"export const {controller}s_{method} = '{AppConstants.AppUrl}/{controller}/{method}';";
         }
     }
 }

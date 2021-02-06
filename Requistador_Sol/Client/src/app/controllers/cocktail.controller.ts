@@ -10,7 +10,7 @@ export class CocktailController {
     constructor(private http: HttpClient) {}
 
     getAll(): Observable<ICocktailDto[]> {
-        const url = urls.CocktailController_GetAll;
+        const url = urls.Cocktails_GetAll;
         return this.http.get<ICocktailDto[]>(url);
     }
 }

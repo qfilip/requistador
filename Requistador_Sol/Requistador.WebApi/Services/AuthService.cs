@@ -1,9 +1,9 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Requistador.WebApi.AppConfiguration;
+using Requistador.WebApi.AppConfiguration.Settings;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 

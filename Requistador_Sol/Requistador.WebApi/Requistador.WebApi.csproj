@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AppConfiguration\Extensions\" />
     <Folder Include="wwwroot\syslogs\" />
   </ItemGroup>
 

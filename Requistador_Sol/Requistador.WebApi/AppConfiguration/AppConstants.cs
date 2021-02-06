@@ -8,12 +8,19 @@ namespace Requistador.WebApi.AppConfiguration
 {
     public static class AppConstants
     {
-        public const string AppUrl = "http://localhost:5655";
+        // common
+        // used mostly for wwwroot folder/file paths //
+        public const string AppUrl = "http://localhost:3274";
         public const string AppDbSourcePrefix = "Datasource=";
         public const string AppDbName = "requistador.db3";
         public const string AppIdentityDbName = "app_identity.db3";
         public const string AppRequestDbName = "request_db.db";
         public const string AppLogFolder = "syslogs";
+        
+        // identity
+        // required by Requistador.Identity assembly
+        public const string Id_AppId = "9600d2a2-0a75-4b08-9ce7-701aa0be175b";
+        public const string Id_RsaKeysFile = "rsa_keys.json";
 
         // authentication
         public const string Auth_SecretKey = "hey hey Judy Judy";

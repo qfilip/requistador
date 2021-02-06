@@ -1,34 +1,14 @@
 ﻿using Mapster;
-using Microsoft.IdentityModel.Tokens;
 using Requistador.Domain.Base;
 using Requistador.Domain.Dtos;
 using Requistador.Domain.Entities;
 using Requistador.Identity.Dtos;
 using Requistador.Identity.Entites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Requistador.WebApi.AppConfiguration
+namespace Requistador.WebApi.AppConfiguration.Settings
 {
-    public class AppSettings
+    public sealed partial class AppSettings
     {
-        public AppSettings(string appDbPath, string requestDbPath, string identityDbPath)
-        {
-            AppDbConnString = appDbPath;
-            RequestDbConnString = requestDbPath;
-            IdentityDbConnString = identityDbPath;
-        }
-
-        public string IdentityDbConnString { get; private set; }
-        public string AppDbConnString { get; private set; }
-        public string RequestDbConnString { get; private set; }
-        
-        public static SymmetricSecurityKey GetAppKey() =>
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AppConstants.Auth_SecretKey));
-
         public static TypeAdapterConfig GetMapsterConfiguration()
         {
             var conf = new TypeAdapterConfig();
