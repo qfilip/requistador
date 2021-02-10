@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ITerminalCommand } from './terminal.models';
 
 @Component({
@@ -12,7 +13,10 @@ export class TerminalComponent implements OnInit {
     
     @Input() maxHeightStyle: string;
 
-    constructor(private renderer: Renderer2) { }
+    constructor(
+        private renderer: Renderer2,
+        private sanitizer: DomSanitizer,
+    ) { }
 
     terminalInput: string;
     
@@ -35,9 +39,9 @@ export class TerminalComponent implements OnInit {
          let nix = ['ls', 'pwd', 'pid', 'cd', 'cat', 'touch'];
          const triedNix = nix.some(x => x === this.terminalInput);
          if(triedNix) {
+             const message = 'Nice try. This is a dumb demo web app, not a *nix OS ';
              this.printToShell(this.terminalInput, true);
-             this.printToShell('Nice try. This is a dumb demo web app, not a *nix OS');
-             
+             this.printToShell(message, false, true);
              return;
          }
         
@@ -53,8 +57,9 @@ export class TerminalComponent implements OnInit {
         command.handler();
     }
 
-    private printToShell(message: string, asUserInput: boolean = false) {
-        const printLine = (line: string, asUserInput: boolean) => {
+    private printToShell(message: string, asUserInput: boolean = false, fingerbang = false) {
+        
+        const printLine = () => {
             let outputRow = this.renderer.createElement('div');
             
             const text = this.renderer.createText(message);
@@ -62,11 +67,17 @@ export class TerminalComponent implements OnInit {
             
             this.renderer.addClass(outputRow, outputColorClass);
             this.renderer.appendChild(outputRow, text);
+            
+            if(fingerbang) {
+                let span = this.renderer.createElement('span');
+                span.innerHTML = '&#128405;';
+                this.renderer.appendChild(outputRow, span);
+            }
 
             this.renderer.appendChild(this.stdout.nativeElement, outputRow);
         }
         
-        asUserInput ? printLine(message, true) : printLine(message, false);
+        printLine();
         this.scrollToElement();
         this.clearInput();
         
