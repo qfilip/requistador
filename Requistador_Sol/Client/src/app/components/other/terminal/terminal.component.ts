@@ -7,7 +7,7 @@ import { ITerminalCommand } from './terminal.models';
     styleUrls: ['./terminal.component.scss']
 })
 export class TerminalComponent implements OnInit {
-    @ViewChild('shell') shell: ElementRef<HTMLDivElement>;
+    @ViewChild('stdout') stdout: ElementRef<HTMLDivElement>;
     @ViewChild('terminalBottom') terminalBottom: ElementRef<HTMLDivElement>;
     
     @Input() maxHeightStyle: string;
@@ -15,15 +15,12 @@ export class TerminalComponent implements OnInit {
     constructor(private renderer: Renderer2) { }
 
     terminalInput: string;
-    terminalOutputs: any[];
     
     ngOnInit(): void {
         this.initializeData();
     }
 
-    private initializeData() {
-        this.terminalOutputs = [];
-    }
+    private initializeData() {}
 
     onEnter() {
         const badCommandMsg = `Bad command. Type 'help' to get help. It's that easy.`;
@@ -33,8 +30,18 @@ export class TerminalComponent implements OnInit {
             
             return;
         }
+
+         // joke
+         let nix = ['ls', 'pwd', 'pid', 'cd', 'cat', 'touch'];
+         const triedNix = nix.some(x => x === this.terminalInput);
+         if(triedNix) {
+             this.printToShell(this.terminalInput, true);
+             this.printToShell('Nice try. This is a dumb demo web app, not a *nix OS');
+             
+             return;
+         }
         
-        // parse command first for params
+        // TODO: parse command for params
         const command = this.getCommands().find(x => x.name === this.terminalInput);
         if(!command) {
             this.printToShell(this.terminalInput, true);
@@ -56,8 +63,7 @@ export class TerminalComponent implements OnInit {
             this.renderer.addClass(outputRow, outputColorClass);
             this.renderer.appendChild(outputRow, text);
 
-            this.terminalOutputs.push(outputRow);
-            this.renderer.appendChild(this.shell.nativeElement, outputRow);
+            this.renderer.appendChild(this.stdout.nativeElement, outputRow);
         }
         
         asUserInput ? printLine(message, true) : printLine(message, false);
@@ -99,10 +105,11 @@ export class TerminalComponent implements OnInit {
     }
 
     private clearHandler() {
-        const remove = (x: any) => {
-            this.renderer.removeChild(this.shell.nativeElement, x);
+        const childElements = Array.from(this.stdout.nativeElement.childNodes);
+        for (let child of childElements) {
+            this.renderer.removeChild(this.stdout.nativeElement, child);
         }
-        this.terminalOutputs.forEach(x => remove(x));
+        
         this.clearInput();
     }
 
