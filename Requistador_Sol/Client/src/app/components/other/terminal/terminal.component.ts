@@ -1,5 +1,6 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { ShellDocumentation } from '../terminal-utils/shell.documentation';
 import { ITerminalCommand } from './terminal.models';
 
 @Component({
@@ -13,49 +14,64 @@ export class TerminalComponent implements OnInit {
     
     @Input() maxHeightStyle: string;
 
-    constructor(
-        private renderer: Renderer2,
-        private sanitizer: DomSanitizer,
-    ) { }
+    constructor(private renderer: Renderer2) { }
 
     terminalInput: string;
+    shellDocs: ShellDocumentation;
     
     ngOnInit(): void {
         this.initializeData();
     }
 
-    private initializeData() {}
+    private initializeData() {
+        this.shellDocs = new ShellDocumentation();
+    }
 
     onEnter() {
-        const badCommandMsg = `Bad command. Type 'help' to get help. It's that easy.`;
+        this.parseInput();
+        this.scrollToElement();
+    }
+
+
+    private parseInput() {
         if(!this.terminalInput) {
-            this.printToShell('', true);
-            this.printToShell(badCommandMsg);
+            this.printBadCommand();
             
             return;
         }
+        let [command, option, arg] = this.terminalInput
+            .split(' ')
+            .filter(x => x !== '');
 
-         // joke
-         let nix = ['ls', 'pwd', 'pid', 'cd', 'cat', 'touch'];
-         const triedNix = nix.some(x => x === this.terminalInput);
-         if(triedNix) {
-             const message = 'Nice try. This is a dumb demo web app, not a *nix OS ';
+        // joke
+        let nix = ['ls', 'pwd', 'pid', 'cd', 'cat', 'touch'];
+        const triedNix = nix.some(x => x === command);
+        if(triedNix) {
+             const message = 'Nice try. This is a dumb demo web app, not a *nix shell ';
              this.printToShell(this.terminalInput, true);
              this.printToShell(message, false, true);
+
              return;
-         }
+        }
         
-        // TODO: parse command for params
-        const command = this.getCommands().find(x => x.name === this.terminalInput);
-        if(!command) {
-            this.printToShell(this.terminalInput, true);
-            this.printToShell(badCommandMsg);
+        const shellCommand = this.getCommands().find(x => x.name === command);
+        this.printToShell(this.terminalInput, true);
+        if(!shellCommand) {
+            this.printBadCommand();
             
             return;
         }
 
-        command.handler();
+        shellCommand.handler(option, arg);
     }
+
+
+    private printBadCommand(message: string[] = null) {
+        const lines = message ?? [`Bad command. Type 'help' to get help. It's that easy.`];
+        this.printToShell('', true);
+        lines.forEach(x => this.printToShell(x));
+    }
+
 
     private printToShell(message: string, asUserInput: boolean = false, fingerbang = false) {
         
@@ -78,7 +94,6 @@ export class TerminalComponent implements OnInit {
         }
         
         printLine();
-        this.scrollToElement();
         this.clearInput();
         
     }
@@ -96,21 +111,22 @@ export class TerminalComponent implements OnInit {
     }
 
 
-    private getCommands() {
+    private getCommands(opt: string = null, arg: string = null) {
         return [
-            { name: 'help', handler: () => { this.helpHandler() }},
-            { name: 'clear', handler: () => { this.clearHandler() } },
-            { name: 'app-cfg', handler: () => { this.someHandler() } },
-            { name: 'user-cfg', handler: () => { this.someHandler() } },
+            { name: 'help', handler: (opt: string, arg: string) => this.helpHandler() },
+            { name: 'clear', handler: (opt: string, arg: string) => this.clearHandler() },
+            { name: 'appcfg', handler: (opt: string, arg: string) => this.someHandler(opt, arg) },
+            { name: 'man', handler: (opt: string, arg: string) => this.manHandler(opt) },
         ] as ITerminalCommand[];
     }
 
     
+    // command handlers
     private helpHandler() {
         let printArray = [ 'Available commands are:'];
         this.getCommands().forEach(x => printArray.push(`[${x.name}]`));
         printArray.push('To obtain more info on command, type:');
-        printArray.push('[command] help');
+        printArray.push('man [command]');
 
         printArray.forEach(x => this.printToShell(x));
     }
@@ -124,6 +140,26 @@ export class TerminalComponent implements OnInit {
         this.clearInput();
     }
 
-    private someHandler() {}
+
+    private manHandler(option: string) {
+        if(!option || option.length === 0) {
+            const msg = [
+                'Insufficient arguments for [man] command',
+                'Try [man] [command] to get command details',
+                'Try [help] to see available commands'
+            ];
+            
+            this.printBadCommand(msg);
+            return;
+        }
+
+        const manPage = this.shellDocs.getManual(option);
+        manPage.forEach(x => this.printToShell(x));
+    }
+
+    private someHandler(option: string, param: string) {
+        console.log(option);
+        console.log(param);
+    }
 
 }

@@ -5,7 +5,17 @@
 // fonts
 @font-face {
     font-family: candara;
-    src: url(/fonts/Candara.ttf);
+    src: url(/fonts/Candara.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: fira;
+    src: url(/fonts/FiraCode-Regular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: terminus;
+    src: url(/fonts/Terminus.ttf) format("truetype");
 }
 
 // DEFAULTS
