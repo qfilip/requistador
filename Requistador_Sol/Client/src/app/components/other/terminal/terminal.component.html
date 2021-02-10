@@ -1,0 +1,20 @@
+<div class="terminal p-1">
+    <div class="no-select terminal-output">
+        <div #shell></div>
+        <div id="terminalBottom" ></div>
+    </div>
+    
+    <div class="w3-row">
+        <div class="shell-green w-5-pc w3-col">
+            &lambda;:
+        </div>
+        <div class="w-95-pc w3-col">
+            <input (keyup.enter)="onEnter()"
+                [(ngModel)]="terminalInput"
+                spellcheck="false"
+                type="text"
+                class="terminal-input">
+        </div>
+    </div>
+
+</div>

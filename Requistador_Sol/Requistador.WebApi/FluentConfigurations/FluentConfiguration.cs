@@ -17,6 +17,7 @@ namespace Requistador.WebApi.FluentConfigurations
         {
             CustomFileExporter.ExportDir = builder.Context.TargetDirectory;
             CustomFileExporter.ExportApiEndpoints();
+            CustomFileExporter.ExportClientConstants();
 
             var dtos = new List<Type>();
 

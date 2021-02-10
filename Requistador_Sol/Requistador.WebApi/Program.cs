@@ -15,8 +15,8 @@ namespace Requistador.WebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    // webBuilder.UseUrls("http://localhost:5100");
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls(AppConstants.AppUrl);
                 });
     }
 }

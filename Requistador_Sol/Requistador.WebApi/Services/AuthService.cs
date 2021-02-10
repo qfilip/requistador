@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using Requistador.Identity.Dtos;
 using Requistador.WebApi.AppConfiguration;
 using Requistador.WebApi.AppConfiguration.Settings;
 using System;
@@ -16,7 +17,7 @@ namespace Requistador.WebApi.Services
             // need IdentityDb
         }
 
-        public async Task<string> Login()
+        public async Task<AppUserDto> Login()
         {
             var securityKey = AppSettings.GetAppKey();
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -29,7 +30,9 @@ namespace Requistador.WebApi.Services
                 signingCredentials: credentials
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return await Task.FromResult(new AppUserDto { Jwt = jwt });
         }
     }
 }

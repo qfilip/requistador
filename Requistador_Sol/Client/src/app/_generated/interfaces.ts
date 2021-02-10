@@ -42,4 +42,5 @@ export interface IAppUserDto
 	status: eUserStatus;
 	username: string;
 	password: string;
+	jwt: string;
 }

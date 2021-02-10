@@ -9,7 +9,7 @@ namespace Requistador.WebApi.Controllers
 {
     [ApiController]
     [EnableCors]
-    [AllowAnonymous]
+    [Authorize]
     [Route("[controller]/[action]")]
     public class BaseApiController : ControllerBase
     {

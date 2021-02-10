@@ -1,0 +1,33 @@
+@import '../../../../styles.scss';
+
+.terminal {
+    background-color: $blue-catacean-darker;
+    color: $orange-light;
+    font-size: 1.5rem;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.terminal-bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+.shell-green {
+    color: $green-light;
+}
+
+.shell-orange {
+    color: $orange-light;
+}
+
+.terminal-input {
+    background-color: transparent;
+    width: 100%;
+    color: $orange-light;
+    border: none;
+    &:focus {
+        outline: none;
+    }
+}
+

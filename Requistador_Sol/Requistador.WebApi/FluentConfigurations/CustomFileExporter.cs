@@ -21,6 +21,11 @@ namespace Requistador.WebApi.FluentConfigurations
                 .Select(x => x.Name)
                 .ToList();
 
+            // add api itself
+            endpoints.Add("// api root");
+            endpoints.Add($"export const Api_Root = '{AppConstants.AppUrl}';");
+            endpoints.Add(string.Empty);
+
             foreach (var controller in controllers)
             {
                 var methodNames = controller.GetMethods()
@@ -36,11 +41,25 @@ namespace Requistador.WebApi.FluentConfigurations
                 endpoints.Add(string.Empty);
             }
 
-            var path = Path.Combine(ExportDir, AppConstants.Client_File_ControllerMethods);
-            if (File.Exists(path))
-                File.Delete(path);
+            WriteToFile(AppConstants.Client_File_ControllerMethods, endpoints);
+        }
 
-            File.WriteAllLines(path, endpoints);
+        public static void ExportClientConstants()
+        {
+            var constants = new List<KeyValuePair<string, string>>()
+            {
+                // Ls - localStorage
+                KeyValuePair.Create("Ls_Jwt_Key", "appjwtkey")
+            };
+
+            var lines = new List<string>();
+            foreach(var c in constants)
+            {
+                var line = $"export const {c.Key} = '{c.Value}';";
+                lines.Add(line);
+            }
+
+            WriteToFile(AppConstants.Client_File_Constants, lines);
         }
 
         private static IEnumerable<Type> FindSubClassesOf<TBaseType>() where TBaseType : class
@@ -61,6 +80,15 @@ namespace Requistador.WebApi.FluentConfigurations
         {
             controller = controller.Replace("Controller", string.Empty);
             return $"export const {controller}s_{method} = '{AppConstants.AppUrl}/{controller}/{method}';";
+        }
+
+        private static void WriteToFile(string filename, List<string> lines)
+        {
+            var path = Path.Combine(ExportDir, filename);
+            if (File.Exists(path))
+                File.Delete(path);
+
+            File.WriteAllLines(path, lines);
         }
     }
 }

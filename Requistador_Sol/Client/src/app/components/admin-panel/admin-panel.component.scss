@@ -1,0 +1,16 @@
+@import '../../../styles.scss';
+
+.admin-overview {
+    background-color: $blue-catacean;
+    color: $color-white;
+    min-height: 100vh;
+    max-height: 100vh;
+
+    overflow-y: auto;
+}
+
+.panel-left {
+    background-color: $blue-catacean-darker;
+    color: $color-white;
+    height: 100vh !important;
+}

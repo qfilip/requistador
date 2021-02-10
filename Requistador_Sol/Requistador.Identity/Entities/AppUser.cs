@@ -3,7 +3,7 @@ using System;
 
 namespace Requistador.Identity.Entites
 {
-    public class AppUser
+    internal class AppUser
     {
         public string Id { get; set; }
         public string AppId { get; set; }

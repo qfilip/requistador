@@ -36,8 +36,8 @@ namespace Requistador.WebApi.AppConfiguration.Settings
 
         private static void DefineIdentityMapping(TypeAdapterConfig conf)
         {
-            conf.NewConfig<AppUser, AppUserDto>();
-            conf.NewConfig<AppUserDto, AppUser>();
+            //conf.NewConfig<AppUser, AppUserDto>();
+            //conf.NewConfig<AppUserDto, AppUser>();
         }
     }
 }

@@ -21,10 +21,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './components/common/notification/app-notification.component';
 import { NotificationService } from './services/notification.service';
 import { IngredientTableComponent } from './components/entries/ingredient/ingredient-table/ingredient-table.component';
+import { LoginComponent } from './components/account/login/login.component';
+import { RegisterComponent } from './components/account/register/register.component';
+import { AccountController } from './controllers/account.controller';
+import { IdentityModule } from './modules/identity/identity.module';
+import { TerminalComponent } from './components/other/terminal/terminal.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
-    // common
+    // common components
     DialogComponent,
     PageLoaderComponent,
     NotificationComponent,
@@ -36,12 +42,19 @@ import { IngredientTableComponent } from './components/entries/ingredient/ingred
     CocktailDetailsComponent,
     EntryHomeComponent,
     IngredientTableComponent,
+    LoginComponent,
+    RegisterComponent,
+    AdminPanelComponent,
+    
+    // other components
+    TerminalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    IdentityModule
   ],
   providers: [
       // common
@@ -50,7 +63,8 @@ import { IngredientTableComponent } from './components/entries/ingredient/ingred
 
       // controllers
       CocktailController,
-      IngredientController
+      IngredientController,
+      AccountController
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,13 @@
+// api root
+export const Api_Root = 'http://localhost:5655';
+
 // Accounts
-export const Accounts_Login = 'http://localhost:3274/Account/Login';
+export const Accounts_Login = 'http://localhost:5655/Account/Login';
 
 // Cocktails
-export const Cocktails_GetAll = 'http://localhost:3274/Cocktail/GetAll';
+export const Cocktails_GetAll = 'http://localhost:5655/Cocktail/GetAll';
 
 // Ingredients
-export const Ingredients_GetAll = 'http://localhost:3274/Ingredient/GetAll';
-export const Ingredients_Create = 'http://localhost:3274/Ingredient/Create';
+export const Ingredients_GetAll = 'http://localhost:5655/Ingredient/GetAll';
+export const Ingredients_Create = 'http://localhost:5655/Ingredient/Create';
 

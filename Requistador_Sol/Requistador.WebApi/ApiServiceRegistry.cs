@@ -26,7 +26,7 @@ namespace Requistador.WebApi
 
             // move to ConfigureSecurityServices() once auth is done
             ConfigureCors(services);
-            // ConfigureAuthentication(services);
+            ConfigureAuthentication(services);
         }
 
         private static void ConfigureDatabases(IServiceCollection services)
@@ -59,7 +59,7 @@ namespace Requistador.WebApi
                     builder
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .SetIsOriginAllowed(origin => origin == AppConstants.Client_AllowedOrigin)));
+                    .SetIsOriginAllowed(origin => origin == AppConstants.Auth_AllowedOrigin)));
         }
 
         private static void ConfigureAuthentication(IServiceCollection services)
@@ -83,6 +83,7 @@ namespace Requistador.WebApi
                     ValidAudience = AppConstants.Auth_ValidAudience,
                     IssuerSigningKey = AppSettings.GetAppKey()
                 };
+                // options.SaveToken
             });
         }
     }

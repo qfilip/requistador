@@ -1,16 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using Requistador.WebApi.AppConfiguration;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Requistador.Identity.Dtos;
 using Requistador.WebApi.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Requistador.WebApi.Controllers
 {
-    public class AccountController : BaseApiController
+    public class AccountController  : BaseApiController
     {
         private readonly AuthService _authService;
         public AccountController(AuthService authService)
@@ -19,10 +15,11 @@ namespace Requistador.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] string password)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] AppUserDto user)
         {
-            var token = _authService.Login();
-            return Ok(new { Token = token });
+            var result = await _authService.Login();
+            return Ok(result);
         }
     }
 }

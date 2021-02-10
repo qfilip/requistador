@@ -93,4 +93,20 @@
     .min-w-#{$i}-vw {
         min-height: #{$i}vw;
     }
+
+    .max-h-#{$i}-pc {
+        max-height: #{$i}#{"%"};
+    }
+
+    .max-w-#{$i}-pc {
+        max-width: #{$i}#{"%"};
+    }
+
+    .max-h-#{$i}-vh {
+        max-height: #{$i}vh;
+    }
+
+    .max-w-#{$i}-vw {
+        max-height: #{$i}vw;
+    }
 }

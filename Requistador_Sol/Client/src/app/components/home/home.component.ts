@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
         this.navLinks = [
             mkLink('Entries', '<i class="lab la-edge"></i>','entries'),
             mkLink('Requests', '<i class="las la-list-ul"></i>',''),
-            mkLink('System Config', '<i class="las la-cog"></i>',''),
+            mkLink('System Config', '<i class="las la-cog"></i>','adminpanel'),
             mkLink('About', '<i class="las la-question"></i>',''),
         ];
     }
