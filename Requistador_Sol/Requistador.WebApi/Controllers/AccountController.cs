@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Requistador.WebApi.Controllers
 {
-    public class AccountController  : BaseApiController
+    public class AccountController : BaseApiController
     {
         private readonly AuthService _authService;
         public AccountController(AuthService authService)

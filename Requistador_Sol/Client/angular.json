@@ -29,9 +29,7 @@
               "src/assets/fonts"
             ],
             "styles": [
-              "src/styles.scss",
-              "src/styles.dynamic.scss",
-              "src/colors.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           },

@@ -1,20 +1,26 @@
-<div class="terminal tty p-1">
-    <div class="no-select terminal-output">
-        <div #stdout></div>
-        <div id="terminalBottom" ></div>
+<div class="terminal-wrapper">
+    <div class="noselect px-2 terminal-header">
+        &#10070;
+        application shell
     </div>
+    <div class="terminal tty p-1">
+        <div class="no-select terminal-output">
+            <div #stdout></div>
+            <div id="terminalBottom" ></div>
+        </div>
+        
+        <div class="w3-row">
+            <div class="shell-green w-5-pc w3-col">
+                &lambda;:
+            </div>
+            <div class="w-95-pc w3-col">
+                <input (keyup.enter)="onEnter()"
+                    [(ngModel)]="terminalInput"
+                    spellcheck="false"
+                    type="text"
+                    class="terminal-input">
+            </div>
+        </div>
     
-    <div class="w3-row">
-        <div class="shell-green w-5-pc w3-col">
-            &lambda;:
-        </div>
-        <div class="w-95-pc w3-col">
-            <input (keyup.enter)="onEnter()"
-                [(ngModel)]="terminalInput"
-                spellcheck="false"
-                type="text"
-                class="terminal-input">
-        </div>
     </div>
-
 </div>

@@ -14,3 +14,16 @@
     color: $color-white;
     height: 100vh !important;
 }
+
+.panel-right {
+    color: $color-white;
+    height: 100vh !important;
+    position: relative;
+}
+
+.terminal-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    max-height: 60%;
+}

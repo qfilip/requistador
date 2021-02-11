@@ -1,26 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@import './colors.scss';
-@import './styles.dynamic.scss';
+@import './base-styles/colors.scss';
+@import './base-styles/styles.dynamic.scss';
+@import './base-styles/fonts.scss';
 
-// fonts
-@font-face {
-    font-family: candara;
-    src: url(/fonts/Candara.ttf) format("truetype");
-}
-
-@font-face {
-    font-family: fira;
-    src: url(/fonts/FiraCode-Regular.ttf) format("truetype");
-}
-
-@font-face {
-    font-family: terminus;
-    src: url(/fonts/Terminus.ttf) format("truetype");
-}
 
 // DEFAULTS
 body {
     font-family: candara;
+    height: 100%;
 }
 
 button {

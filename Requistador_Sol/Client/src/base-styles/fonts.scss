@@ -1,0 +1,27 @@
+// fonts
+// https://github.com/angular/angular-cli/issues/6599
+
+@font-face {
+    font-family: proggy;
+    src: url(~/assets/fonts/ProggyClean.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: candara;
+    src: url(~/assets/fonts/Candara.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: fira;
+    src: url(~/assets/fonts/FiraCode-Regular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: terminus;
+    src: url(~/assets/fonts/Terminus.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: cascadia;
+    src: url(~/assets/fonts/CascadiaCode.ttf) format("truetype");
+}
