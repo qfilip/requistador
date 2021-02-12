@@ -6,6 +6,7 @@ export const Accounts_Login = 'http://localhost:5655/Account/Login';
 
 // Admins
 export const Admins_GetAppConfiguration = 'http://localhost:5655/Admin/GetAppConfiguration';
+export const Admins_SetRequestProcessingInterval = 'http://localhost:5655/Admin/SetRequestProcessingInterval';
 
 // Cocktails
 export const Cocktails_GetAll = 'http://localhost:5655/Cocktail/GetAll';

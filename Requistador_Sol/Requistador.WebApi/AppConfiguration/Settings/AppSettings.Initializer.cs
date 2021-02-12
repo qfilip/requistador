@@ -8,10 +8,14 @@ namespace Requistador.WebApi.AppConfiguration.Settings
     {
         private class AppSettingsParameters
         {
+            // paths
             public string SyslogPath { get; init; }
             public string AppDbConnString { get; init; }
             public string RequestDbConnString { get; init; }
             public string IdentityDbConnString { get; init; }
+
+            // default configs
+            public int RequestProcessingInterval { get; set; }
         }
         
         private static AppSettings _instance;
@@ -27,7 +31,10 @@ namespace Requistador.WebApi.AppConfiguration.Settings
                 SyslogPath = Path.Combine(environment.WebRootPath, AppConstants.AppLogFolder),
                 AppDbConnString = Path.Combine(appDbPath, AppConstants.AppDbName),
                 RequestDbConnString = Path.Combine(environment.WebRootPath, AppConstants.AppRequestDbName),
-                IdentityDbConnString = Path.Combine(environment.WebRootPath, AppConstants.AppIdentityDbName)
+                IdentityDbConnString = Path.Combine(environment.WebRootPath, AppConstants.AppIdentityDbName),
+
+                // TODO: read it from config file
+                RequestProcessingInterval = 1
             };
 
             _instance = new AppSettings(parameters);

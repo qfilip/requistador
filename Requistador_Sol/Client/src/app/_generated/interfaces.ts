@@ -5,6 +5,8 @@
 import { eAppRequestType } from './enums';
 import { eAppRequestStatus } from './enums';
 import { eEntityStatus } from './enums';
+import { eUserRole } from './enums';
+import { eUserStatus } from './enums';
 
 export interface IAppRequestDto<TDto>
 {
@@ -39,4 +41,21 @@ export interface IIngredientDto extends IBaseDto
 	name: string;
 	strength: number;
 	excerpts: IExcerptDto[];
+}
+export interface IApiBaseDto
+{
+}
+export interface IAppStateDto extends IApiBaseDto
+{
+	processingInterval: number;
+	syslogFiles: string[];
+}
+export interface IAppUserDto
+{
+	id: any;
+	role: eUserRole;
+	status: eUserStatus;
+	username: string;
+	password: string;
+	jwt: string;
 }

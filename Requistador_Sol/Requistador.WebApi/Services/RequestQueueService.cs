@@ -8,6 +8,7 @@ using Requistador.Domain.Entities;
 using Requistador.Domain.Enumerations;
 using Requistador.Logic.Commands.Request;
 using Requistador.WebApi.AppConfiguration;
+using Requistador.WebApi.AppConfiguration.Settings;
 using System;
 using System.IO;
 using System.Linq.Expressions;
@@ -50,7 +51,11 @@ namespace Requistador.WebApi.Services
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(ProcessRequests, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            var interval = AppSettings.GetProcessingInterval();
+            var dueTime = TimeSpan.Zero;
+            var period = TimeSpan.FromMinutes(interval);
+            
+            _timer = new Timer(ProcessRequests, null, dueTime, period);
             return Task.CompletedTask;
         }
 

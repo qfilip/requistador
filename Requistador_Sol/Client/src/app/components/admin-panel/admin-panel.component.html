@@ -3,19 +3,32 @@
         <h4>Something</h4>
     </div> -->
     <div class="panel-right">
-        <div class="h-40-pc">
+        <div class="">
             <h4 class="w3-center">Admin Panel</h4>
-            
-            <div class="w3-row">
+            <hr>
+            <div *ngIf="!!appConfigs" class="noselect w3-row">
                 <div class="w3-half">
-                    <h5>Application Stats</h5>
+                    <h5 class="w3-center">Application Configuration</h5>
+                    <div class="info-row-left w3-center w3-row">
+                        <div class="w3-twothird">Request processing interval: </div>
+                        <div class="w3-third">{{ appConfigs.processingInterval }}</div>
+                    </div>
                 </div>
-                <div class="w3-half"></div>
+                <div class="w3-half">
+                    <h5 class="w3-center">Syslog Errors</h5>
+                    <div *ngFor="let file of appConfigs.syslogFiles" class="info-row-right w3-center w3-row">
+                        <div class="w3-third">
+                            <button>View File</button>
+                        </div>
+                        <div class="w3-twothird">
+                            {{ file }}
+                        </div>
+                    </div>
+                </div>
             </div>
-        
         </div>
         
-        <div class="terminal-container">
+        <div class="h-40-pc terminal-container">
             <terminal></terminal>
         </div>
     </div>

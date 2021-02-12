@@ -2,6 +2,7 @@
 using Requistador.Domain.Enumerations;
 using Requistador.Dtos.Domain;
 using Requistador.Dtos.Identity;
+using Requistador.Dtos.WebApi;
 using Requistador.Identity.Enumerations;
 using Requistador.WebApi.AppConfiguration;
 using System;
@@ -22,9 +23,11 @@ namespace Requistador.WebApi.FluentConfigurations
             var dtos = new List<Type>();
 
             var domainDtos = GetTypesForExport<BaseDto>(AppConstants.NMSP_DomainDtos);
+            var webapiDtos = GetTypesForExport<ApiBaseDto>(AppConstants.NMSP_WebApiDtos);
             var identityDtos = GetTypesForExport<AppUserDto>(AppConstants.NMSP_IdentityDtos);
 
             dtos.AddRange(domainDtos);
+            dtos.AddRange(webapiDtos);
             dtos.AddRange(identityDtos);
 
             builder.Global(cfg => cfg.CamelCaseForProperties().UseModules());

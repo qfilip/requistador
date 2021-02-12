@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="WebApi\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Requistador.Domain\Requistador.Domain.csproj" />
     <ProjectReference Include="..\Requistador.Identity\Requistador.Identity.csproj" />
   </ItemGroup>
