@@ -1,9 +1,9 @@
 ﻿using MapsterMapper;
 using Requistador.DataAccess.Contexts;
 using Requistador.Domain.Base;
-using Requistador.Domain.Dtos;
 using Requistador.Domain.Entities;
 using Requistador.Domain.Enumerations;
+using Requistador.Dtos.Domain;
 using Requistador.Logic.Base;
 using System;
 using System.Collections.Generic;

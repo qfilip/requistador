@@ -1,7 +1,7 @@
 ﻿using Requistador.Identity.Enumerations;
 using System;
 
-namespace Requistador.Identity.Dtos
+namespace Requistador.Dtos.Identity
 {
     public class AppUserDto
     {

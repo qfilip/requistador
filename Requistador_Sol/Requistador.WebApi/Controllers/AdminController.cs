@@ -1,4 +1,5 @@
-﻿using Requistador.WebApi.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using Requistador.WebApi.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,12 @@ namespace Requistador.WebApi.Controllers
         public AdminController(AppConfigService appConfigService)
         {
             _appConfigService = appConfigService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAppConfiguration()
+        {
+            return Ok();
         }
     }
 }

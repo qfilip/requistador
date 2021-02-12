@@ -1,7 +1,9 @@
 ﻿using Requistador.Domain.Enumerations;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Requistador.Domain.Base
+namespace Requistador.Dtos.Domain
 {
     public class BaseDto
     {

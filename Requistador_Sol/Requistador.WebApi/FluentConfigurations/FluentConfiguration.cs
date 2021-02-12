@@ -1,7 +1,7 @@
 ﻿using Reinforced.Typings.Fluent;
-using Requistador.Domain.Base;
 using Requistador.Domain.Enumerations;
-using Requistador.Identity.Dtos;
+using Requistador.Dtos.Domain;
+using Requistador.Dtos.Identity;
 using Requistador.Identity.Enumerations;
 using Requistador.WebApi.AppConfiguration;
 using System;

@@ -22,10 +22,8 @@ export class BareShell extends ShellScriptBase {
         this.clear();
     }
 
-    scrollToElement(): void {
-        document
-            .querySelector('#terminalBottom')
-            .scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    scrollToBottom() {
+        this.scrollToElement();
     }
 
     execute(option?: string, arg?: string) {

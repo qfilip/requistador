@@ -50,7 +50,7 @@ export class TerminalComponent implements OnInit, AfterViewInit {
 
     onEnter() {
         this.parseInput();
-        this.shell.scrollToElement();
+        this.shell.scrollToBottom();
     }
 
 

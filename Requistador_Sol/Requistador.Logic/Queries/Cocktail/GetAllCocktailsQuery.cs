@@ -1,12 +1,9 @@
-﻿using FluentValidation;
-using MapsterMapper;
+﻿using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Requistador.DataAccess.Contexts;
-using Requistador.Domain.Dtos;
+using Requistador.Dtos.Domain;
 using Requistador.Logic.Base;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

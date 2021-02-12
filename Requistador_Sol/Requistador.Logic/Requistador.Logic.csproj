@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Requistador.DataAccess\Requistador.DataAccess.csproj" />
+    <ProjectReference Include="..\Requistador.Dtos\Requistador.Dtos.csproj" />
   </ItemGroup>
 
 </Project>

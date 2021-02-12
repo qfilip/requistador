@@ -33,7 +33,7 @@ namespace Requistador.WebApi.AppConfiguration
         // namespaces
         public const string NMSP_Solution = "Requistador";
         public const string NMSP_Logic = "Requistador.Logic";
-        public const string NMSP_DomainDtos = "Requistador.Domain.Dtos";
+        public const string NMSP_DomainDtos = "Requistador.Dtos.Domain";
         public const string NMSP_IdentityDtos = "Requistador.Identity.Dtos";
 
         // formats

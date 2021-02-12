@@ -1,7 +1,7 @@
 ﻿using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Requistador.DataAccess.Contexts;
-using Requistador.Domain.Dtos;
+using Requistador.Dtos.Domain;
 using Requistador.Logic.Base;
 using System.Collections.Generic;
 using System.Threading;

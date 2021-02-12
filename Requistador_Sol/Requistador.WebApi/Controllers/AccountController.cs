@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Requistador.Identity.Dtos;
+using Requistador.Dtos.Identity;
 using Requistador.WebApi.Services;
 using System.Threading.Tasks;
 

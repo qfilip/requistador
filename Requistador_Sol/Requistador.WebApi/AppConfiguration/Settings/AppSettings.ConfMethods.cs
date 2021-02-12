@@ -1,9 +1,7 @@
 ﻿using Mapster;
 using Requistador.Domain.Base;
-using Requistador.Domain.Dtos;
 using Requistador.Domain.Entities;
-using Requistador.Identity.Dtos;
-using Requistador.Identity.Entites;
+using Requistador.Dtos.Domain;
 
 namespace Requistador.WebApi.AppConfiguration.Settings
 {

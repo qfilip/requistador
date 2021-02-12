@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="WebApi\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Requistador.Domain\Requistador.Domain.csproj" />
+    <ProjectReference Include="..\Requistador.Identity\Requistador.Identity.csproj" />
+  </ItemGroup>
+
+</Project>

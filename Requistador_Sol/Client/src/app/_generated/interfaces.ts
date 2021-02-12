@@ -4,8 +4,7 @@
 
 import { eAppRequestType } from './enums';
 import { eAppRequestStatus } from './enums';
-import { eUserRole } from './enums';
-import { eUserStatus } from './enums';
+import { eEntityStatus } from './enums';
 
 export interface IAppRequestDto<TDto>
 {
@@ -17,30 +16,27 @@ export interface IAppRequestDto<TDto>
 	pendingRequestId: any;
 	pendingRequest: IAppRequestDto<TDto>;
 }
-export interface ICocktailDto
+export interface IBaseDto
+{
+	id: any;
+	entityStatus: eEntityStatus;
+	createdOn: any;
+}
+export interface ICocktailDto extends IBaseDto
 {
 	name: string;
 	excerpts: IExcerptDto[];
 	ingredients: IIngredientDto[];
 }
-export interface IExcerptDto
+export interface IExcerptDto extends IBaseDto
 {
 	cocktailId: string;
 	ingredientId: string;
 	amount: number;
 }
-export interface IIngredientDto
+export interface IIngredientDto extends IBaseDto
 {
 	name: string;
 	strength: number;
 	excerpts: IExcerptDto[];
-}
-export interface IAppUserDto
-{
-	id: any;
-	role: eUserRole;
-	status: eUserStatus;
-	username: string;
-	password: string;
-	jwt: string;
 }

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requistador.Domain", "Requi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requistador.DataAccess", "Requistador.DataAccess\Requistador.DataAccess.csproj", "{46DBB707-E7D3-4D1B-BA08-4D338C698DDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Requistador.Identity", "Requistador.Identity\Requistador.Identity.csproj", "{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requistador.Identity", "Requistador.Identity\Requistador.Identity.csproj", "{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Requistador.Dtos", "Requistador.Dtos\Requistador.Dtos.csproj", "{766AA319-4A52-42BE-A8EB-05419E8A2AA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F16B3CF-8151-4BCC-90A2-56768F02C9B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{766AA319-4A52-42BE-A8EB-05419E8A2AA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{766AA319-4A52-42BE-A8EB-05419E8A2AA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{766AA319-4A52-42BE-A8EB-05419E8A2AA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{766AA319-4A52-42BE-A8EB-05419E8A2AA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

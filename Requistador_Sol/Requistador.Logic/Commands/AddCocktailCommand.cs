@@ -1,5 +1,4 @@
 ﻿using Requistador.DataAccess.Contexts;
-using Requistador.Domain.Dtos;
 using Requistador.Domain.Entities;
 using Requistador.Domain.Enumerations;
 using Requistador.Logic.Base;

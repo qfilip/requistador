@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Requistador.Domain.Dtos;
+using Requistador.Dtos.Domain;
 using Requistador.Logic.Commands.Request;
 using Requistador.Logic.Queries.Ingredient;
 using System.Threading.Tasks;

@@ -30,14 +30,30 @@ export class ManScript extends ShellScriptBase {
 
 
     execute(option?: string, arg?: string) {
-        throw new Error("Method not implemented.");
+        const valid = this.validate(option, arg);
+        if(!valid) {
+            return;
+        }
+
+        const command = this.scripts.find(x => x.name === option);
+        command.manual.forEach(x => this.print(x));
     }
     
 
     protected validate(option: string, arg: string): boolean {
-        const valid = !option || option.length === 0;
-        if(!valid) {
-            const errors = [
+        let errors = [];
+        const availableScripts = this.scripts.map(x => x.name);
+
+        if(!option) {
+            errors = [
+                'Bad invocation of [man] command',
+                'Try [help] to see available commands'
+            ];
+
+            errors.forEach(x => this.print(x, eShellColor.Error));
+        }
+        else if(option.length === 0) {
+            errors = [
                 'Insufficient arguments for [man] command',
                 'Try [man] [command] to get command details',
                 'Try [help] to see available commands'
@@ -45,8 +61,16 @@ export class ManScript extends ShellScriptBase {
 
             errors.forEach(x => this.print(x, eShellColor.Error));
         }
+        else if(!availableScripts.includes(option)) {
+            errors = [
+                `The command [${option}] is not registered within shell`,
+                'Try [help] to see available commands'
+            ];
 
-        return valid;
+            errors.forEach(x => this.print(x, eShellColor.Error));
+        }
+
+        return errors.length === 0;
     }
 
 

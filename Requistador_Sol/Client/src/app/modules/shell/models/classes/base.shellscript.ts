@@ -54,6 +54,14 @@ export abstract class ShellScriptBase implements OnDestroy {
     protected abstract validate(option: string, arg: string): boolean;
     protected abstract getDocumentation(): string[];
 
+
+    protected scrollToElement(): void {
+        document
+            .querySelector('#terminalBottom')
+            .scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    }
+
+
     private registerInShell() {
         const script = {
             name: this.scriptName,
@@ -63,6 +71,7 @@ export abstract class ShellScriptBase implements OnDestroy {
         this.shellService.registerScript(script);
     }
 
+    
     ngOnDestroy() {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();

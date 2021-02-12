@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Requistador.Domain.Dtos
+namespace Requistador.Dtos.Domain
 {
     public class AppRequestDto<TDto> where TDto : BaseDto
     {

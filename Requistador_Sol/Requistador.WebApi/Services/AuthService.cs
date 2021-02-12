@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Requistador.Identity.Dtos;
+using Requistador.Dtos.Identity;
 using Requistador.WebApi.AppConfiguration;
 using Requistador.WebApi.AppConfiguration.Settings;
 using System;

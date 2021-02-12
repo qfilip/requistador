@@ -1,14 +1,11 @@
 ﻿using MediatR;
 using Requistador.DataAccess.Contexts;
 using Requistador.Domain.Base;
-using Requistador.Domain.Dtos;
 using Requistador.Domain.Entities;
 using Requistador.Domain.Enumerations;
-using Requistador.Logic.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Requistador.WebApi.Services

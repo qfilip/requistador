@@ -1,12 +1,4 @@
-﻿using Requistador.Domain.Base;
-using Requistador.Domain.Dtos;
-using Requistador.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Requistador.WebApi.AppConfiguration
+﻿namespace Requistador.WebApi.AppConfiguration
 {
     //public class MappingProfiles : Profile
     //{

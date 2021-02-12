@@ -7,5 +7,6 @@ namespace Requistador.WebApi.Services
 {
     public class AppConfigService
     {
+
     }
 }
