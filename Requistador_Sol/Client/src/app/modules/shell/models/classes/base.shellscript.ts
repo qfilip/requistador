@@ -1,24 +1,36 @@
-import { ElementRef, Renderer2 } from "@angular/core";
-import { eShellColor } from "../terminal.models";
+import { ElementRef, OnDestroy, Renderer2 } from "@angular/core";
+import { Subject } from "rxjs";
+import { ShellService } from "../../shell.service";
+import { eShellColor } from "../enums";
+import { IShellScript } from "../interfaces/IShellScript";
 
-export abstract class ShellScriptBase {
+export abstract class ShellScriptBase implements OnDestroy {
     scriptName: string;
     protected stdout: ElementRef<HTMLDivElement>;
+    protected ngUnsubscribe: Subject<any>;
+    
     private colorMap: { [key: number]: string }
 
     constructor(
         scriptName: string,
         stdout: ElementRef<HTMLDivElement>,
-        protected renderer: Renderer2
+        protected renderer: Renderer2,
+        protected shellService: ShellService,
+        registerInShell: boolean = true
     ) {
         this.scriptName = scriptName;
         this.stdout = stdout;
-
+        
         this.colorMap = {};
         this.colorMap[eShellColor.Regular] = 'shell-regular';
         this.colorMap[eShellColor.Warning] = 'shell-warning';
         this.colorMap[eShellColor.Error] = 'shell-error';
         this.colorMap[eShellColor.User] = 'shell-user';
+        
+        if(registerInShell) {
+            this.ngUnsubscribe = new Subject();
+            this.registerInShell();
+        }
     }
 
     protected print(message: string, color: eShellColor = eShellColor.Regular, fingerbang = false) {
@@ -41,4 +53,18 @@ export abstract class ShellScriptBase {
     abstract execute(option?: string, arg?: string);
     protected abstract validate(option: string, arg: string): boolean;
     protected abstract getDocumentation(): string[];
+
+    private registerInShell() {
+        const script = {
+            name: this.scriptName,
+            manual: this.getDocumentation()
+        } as IShellScript;
+
+        this.shellService.registerScript(script);
+    }
+
+    ngOnDestroy() {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+    }
 }

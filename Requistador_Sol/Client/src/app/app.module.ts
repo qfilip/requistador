@@ -27,6 +27,7 @@ import { AccountController } from './controllers/account.controller';
 import { IdentityModule } from './modules/identity/identity.module';
 import { TerminalComponent } from './components/other/terminal/terminal.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { ShellModule } from './modules/shell/shell.module';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,10 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    IdentityModule
+    
+    // homecooking exports
+    IdentityModule,
+    ShellModule
   ],
   providers: [
       // common

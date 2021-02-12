@@ -1,11 +1,15 @@
 import { ElementRef, Renderer2 } from "@angular/core";
-import { eShellColor } from "../terminal.models";
+import { ShellService } from "../../shell.service";
+import { eShellColor } from "../enums";
 import { ShellScriptBase } from "./base.shellscript";
 
 export class AppcfgScript extends ShellScriptBase {
     
-    constructor(stdout: ElementRef<HTMLDivElement>, renderer: Renderer2) {
-        super('appcfg', stdout, renderer);
+    constructor(
+        stdout: ElementRef<HTMLDivElement>,
+        renderer: Renderer2,
+        shellService: ShellService) {
+        super('appcfg', stdout, renderer, shellService);
     }
 
     execute(option: string, arg: string) {

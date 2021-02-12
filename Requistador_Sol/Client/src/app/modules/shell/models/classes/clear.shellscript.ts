@@ -1,10 +1,15 @@
 import { ElementRef, Renderer2 } from "@angular/core";
+import { ShellService } from "../../shell.service";
 import { ShellScriptBase } from "./base.shellscript";
 
 export class ClearScript extends ShellScriptBase {
     private clearUserInput: () => void;
-    constructor(stdout: ElementRef<HTMLDivElement>, renderer: Renderer2, clearFn: () => void) {
-        super('clear', stdout, renderer);
+    constructor(
+        stdout: ElementRef<HTMLDivElement>,
+        renderer: Renderer2,
+        shellService: ShellService,
+        clearFn: () => void) {
+        super('clear', stdout, renderer, shellService);
         this.clearUserInput = clearFn;
     }
 

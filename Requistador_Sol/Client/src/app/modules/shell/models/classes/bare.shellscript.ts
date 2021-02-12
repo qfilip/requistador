@@ -1,12 +1,19 @@
 import { ElementRef, Renderer2 } from "@angular/core";
-import { eShellColor } from "../terminal.models";
+import { ShellService } from "../..";
+import { eShellColor } from "../enums";
 import { ShellScriptBase } from "./base.shellscript";
 
 export class BareShell extends ShellScriptBase {
     private clear: () => void;
     
-    constructor(stdout: ElementRef<HTMLDivElement>, renderer: Renderer2, clearFn: () => void) {
-        super('bareshell', stdout, renderer);
+    constructor(
+        stdout: ElementRef<HTMLDivElement>,
+        renderer: Renderer2,
+        shellService: ShellService,
+        clearFn: () => void)
+    {
+        const registerInShell = false;
+        super('bareshell', stdout, renderer, shellService, registerInShell);
         this.clear = clearFn;
     }
 
@@ -28,7 +35,7 @@ export class BareShell extends ShellScriptBase {
         throw new Error("Method not implemented.");
     }
     protected getDocumentation(): string[] {
-        throw new Error("Method not implemented.");
+        return [];
     }
 
 }

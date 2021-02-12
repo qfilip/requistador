@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Requistador.WebApi.AppConfiguration;
 
 namespace Requistador.WebApi
 {

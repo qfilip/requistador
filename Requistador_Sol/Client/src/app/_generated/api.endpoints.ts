@@ -4,6 +4,8 @@ export const Api_Root = 'http://localhost:5655';
 // Accounts
 export const Accounts_Login = 'http://localhost:5655/Account/Login';
 
+// Admins
+
 // Cocktails
 export const Cocktails_GetAll = 'http://localhost:5655/Cocktail/GetAll';
 

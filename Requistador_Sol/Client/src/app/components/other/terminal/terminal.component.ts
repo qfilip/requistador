@@ -1,10 +1,13 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { ShellService } from 'src/app/modules/shell';
+import { BareShell } from 'src/app/modules/shell/models/classes/bare.shellscript';
+import { ShellScriptBase } from 'src/app/modules/shell/models/classes/base.shellscript';
+import { ClearScript } from 'src/app/modules/shell/models/classes/clear.shellscript';
+import { HelpScript } from 'src/app/modules/shell/models/classes/help.shellscript';
+import { ManScript } from 'src/app/modules/shell/models/classes/man.shellscript';
+import { eShellColor } from 'src/app/modules/shell/models/enums';
 import { PageLoaderService } from 'src/app/services/page-loader.service';
-import { AppcfgScript } from './shell-scripts/appcfg.shellscript';
-import { BareShell } from './shell-scripts/bare.shellscript';
-import { ShellScriptBase } from './shell-scripts/base.shellscript';
-import { ClearScript } from './shell-scripts/clear.shellscript';
-import { eShellColor } from './terminal.models';
+import { AppcfgScript } from '../../../modules/shell/models/classes/appcfg.shellscript';
 
 @Component({
     selector: 'terminal',
@@ -19,7 +22,8 @@ export class TerminalComponent implements OnInit, AfterViewInit {
 
     constructor(
         private pageLoaderService: PageLoaderService,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private shellService: ShellService
     ) { }
 
     terminalInput: string;
@@ -32,11 +36,13 @@ export class TerminalComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         const clear = () => { this.terminalInput = '' };
-        this.shell = new BareShell(this.stdout, this.renderer, clear);
+        this.shell = new BareShell(this.stdout, this.renderer, this.shellService, clear);
         
         this.shellScripts = [
-            new AppcfgScript(this.stdout, this.renderer),
-            new ClearScript(this.stdout, this.renderer, clear)
+            new AppcfgScript(this.stdout, this.renderer, this.shellService),
+            new HelpScript(this.stdout, this.renderer, this.shellService),
+            new ManScript(this.stdout, this.renderer, this.shellService),
+            new ClearScript(this.stdout, this.renderer, this.shellService, clear),
         ];
 
         this.pageLoaderService.hide();
