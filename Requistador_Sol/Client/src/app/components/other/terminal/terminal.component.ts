@@ -1,35 +1,50 @@
-import { ThrowStmt } from '@angular/compiler';
-import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { ShellDocumentation } from '../terminal-utils/shell.documentation';
-import { ITerminalCommand } from './terminal.models';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { PageLoaderService } from 'src/app/services/page-loader.service';
+import { AppcfgScript } from './shell-scripts/appcfg.shellscript';
+import { BareShell } from './shell-scripts/bare.shellscript';
+import { ShellScriptBase } from './shell-scripts/base.shellscript';
+import { ClearScript } from './shell-scripts/clear.shellscript';
+import { eShellColor } from './terminal.models';
 
 @Component({
     selector: 'terminal',
     templateUrl: './terminal.component.html',
     styleUrls: ['./terminal.component.scss']
 })
-export class TerminalComponent implements OnInit {
+export class TerminalComponent implements OnInit, AfterViewInit {
     @ViewChild('stdout') stdout: ElementRef<HTMLDivElement>;
     @ViewChild('terminalBottom') terminalBottom: ElementRef<HTMLDivElement>;
     
     @Input() maxHeightStyle: string;
 
-    constructor(private renderer: Renderer2) { }
+    constructor(
+        private pageLoaderService: PageLoaderService,
+        private renderer: Renderer2
+    ) { }
 
     terminalInput: string;
-    shellDocs: ShellDocumentation;
+    shell: BareShell;
+    shellScripts: ShellScriptBase[];
     
     ngOnInit(): void {
-        this.initializeData();
+        this.pageLoaderService.show();
     }
 
-    private initializeData() {
-        this.shellDocs = new ShellDocumentation();
+    ngAfterViewInit() {
+        const clear = () => { this.terminalInput = '' };
+        this.shell = new BareShell(this.stdout, this.renderer, clear);
+        
+        this.shellScripts = [
+            new AppcfgScript(this.stdout, this.renderer),
+            new ClearScript(this.stdout, this.renderer, clear)
+        ];
+
+        this.pageLoaderService.hide();
     }
 
     onEnter() {
         this.parseInput();
-        this.scrollToElement();
+        this.shell.scrollToElement();
     }
 
 
@@ -48,96 +63,28 @@ export class TerminalComponent implements OnInit {
         const triedNix = nix.some(x => x === command);
         if(triedNix) {
              const message = 'Nice try. This is a dumb demo web app, not a *nix shell ';
-             this.printToShell(this.terminalInput, true);
-             this.printToShell(message, false, true);
+             this.shell.printToShell(this.terminalInput, eShellColor.User);
+             this.shell.printToShell(message, eShellColor.Regular, true);
 
              return;
         }
-        
-        const shellCommand = this.getCommands().find(x => x.name === command);
-        this.printToShell(this.terminalInput, true);
+
+        const shellCommand = this.shellScripts.find(x => x.scriptName === command);
+        this.shell.printToShell(this.terminalInput, eShellColor.User);
         if(!shellCommand) {
             this.printBadCommand();
             
             return;
         }
 
-        shellCommand.handler(option, arg);
+        shellCommand.execute(option, arg);
     }
 
 
     private printBadCommand(message: string[] = null) {
         const lines = message ?? [`Bad command. Type 'help' to get help. It's that easy.`];
-        this.printToShell('', true);
-        lines.forEach(x => this.printToShell(x));
-    }
-
-
-    private printToShell(message: string, asUserInput: boolean = false, fingerbang = false) {
-        
-        const printLine = () => {
-            let outputRow = this.renderer.createElement('div');
-            
-            const text = this.renderer.createText(message);
-            const outputColorClass = asUserInput ? 'shell-green' : 'shell-orange';
-            
-            this.renderer.addClass(outputRow, outputColorClass);
-            this.renderer.appendChild(outputRow, text);
-            
-            if(fingerbang) {
-                let span = this.renderer.createElement('span');
-                span.innerHTML = '&#128405;';
-                this.renderer.appendChild(outputRow, span);
-            }
-
-            this.renderer.appendChild(this.stdout.nativeElement, outputRow);
-        }
-        
-        printLine();
-        this.clearInput();
-        
-    }
-
-
-    private clearInput() {
-        this.terminalInput = '';
-    }
-
-
-    private scrollToElement(): void {
-        document
-            .querySelector('#terminalBottom')
-            .scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-    }
-
-
-    private getCommands(opt: string = null, arg: string = null) {
-        return [
-            { name: 'help', handler: (opt: string, arg: string) => this.helpHandler() },
-            { name: 'clear', handler: (opt: string, arg: string) => this.clearHandler() },
-            { name: 'appcfg', handler: (opt: string, arg: string) => this.someHandler(opt, arg) },
-            { name: 'man', handler: (opt: string, arg: string) => this.manHandler(opt) },
-        ] as ITerminalCommand[];
-    }
-
-    
-    // command handlers
-    private helpHandler() {
-        let printArray = [ 'Available commands are:'];
-        this.getCommands().forEach(x => printArray.push(`[${x.name}]`));
-        printArray.push('To obtain more info on command, type:');
-        printArray.push('man [command]');
-
-        printArray.forEach(x => this.printToShell(x));
-    }
-
-    private clearHandler() {
-        const childElements = Array.from(this.stdout.nativeElement.childNodes);
-        for (let child of childElements) {
-            this.renderer.removeChild(this.stdout.nativeElement, child);
-        }
-        
-        this.clearInput();
+        this.shell.printToShell('', eShellColor.Error);
+        lines.forEach(x => this.shell.printToShell(x));
     }
 
 
@@ -153,13 +100,7 @@ export class TerminalComponent implements OnInit {
             return;
         }
 
-        const manPage = this.shellDocs.getManual(option);
-        manPage.forEach(x => this.printToShell(x));
+        // const manPage = this.shellDocs.getManual(option);
+        // manPage.forEach(x => this.printToShell(x));
     }
-
-    private someHandler(option: string, param: string) {
-        console.log(option);
-        console.log(param);
-    }
-
 }

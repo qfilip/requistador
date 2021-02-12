@@ -30,12 +30,20 @@
     bottom: 0;
 }
 
-.shell-green {
+.shell-user {
     color: $green-light;
 }
 
-.shell-orange {
+.shell-regular {
+    color: $color-silver;
+}
+
+.shell-warning {
     color: $orange-light;
+}
+
+.shell-error {
+    color: $color-red;
 }
 
 .terminal-input {
