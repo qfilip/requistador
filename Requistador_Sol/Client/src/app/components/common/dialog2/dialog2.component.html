@@ -1,0 +1,20 @@
+<div class="dialog-container">
+    <div class="md-modal"
+        [ngClass]="{
+            'md-show' : visible,
+            'md-effect-3d' : _eDialogAnimation.Sign3D === options.dialogAnimation,
+            'md-effect-fadein' : _eDialogAnimation.FadeIn === options.dialogAnimation,
+            'md-effect-slidein' : _eDialogAnimation.SlideIn === options.dialogAnimation
+        }">
+        <div class="md-content">
+            <ng-content select="[dialogContent]"></ng-content>
+            <!-- <h3 class="w3-center">{{ options.header }}</h3>
+            <ng-content select="[dialogBody]"></ng-content>
+            
+            <div class="flx-ec ">
+                <button (click)="onConfirm()">{{ options.okLabel }}</button>
+                <button *ngIf="options.cancelVisible" (click)="onDeny()">{{ options.cancelLabel }}</button>
+            </div> -->
+        </div>
+    </div>
+</div>

@@ -34,3 +34,35 @@
 .info-row-right {
     background: linear-gradient(to left, $black-transparent, transparent);
 }
+
+.admin-btn {
+    outline: none !important;
+    border: 1px solid $color-silver;
+    color: $color-silver !important;
+    background-color: transparent;
+    font-size: .7rem;
+    &:hover {
+        background-color: $color-silver;
+        color: $color-black !important;
+    }
+}
+
+.log-dialog {
+    background-color: $color-silver;
+    width: 50%;
+    & > .d-head {
+        color: $orange-light;
+        background-color: $blue-catacean;
+    }
+
+    & > .d-foot {
+        button {
+            width: 20%;
+            color: $color-silver;
+            background: $blue-catacean;
+            &:hover {
+                color: $orange-light;
+            }
+        }
+    }
+}

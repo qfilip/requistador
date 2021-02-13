@@ -7,6 +7,7 @@ using Requistador.Identity.Enumerations;
 using Requistador.WebApi.AppConfiguration;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 

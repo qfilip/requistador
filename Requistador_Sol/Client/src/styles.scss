@@ -12,6 +12,7 @@ body {
 
 button {
     outline: none;
+    border: none;
     background-color: transparent;
     cursor: pointer;
     text-align: center;
@@ -72,6 +73,12 @@ button {
 
 .flx-y-center {
     display: flex;
+    align-items: center;
+}
+
+.flx-ec {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 }
 

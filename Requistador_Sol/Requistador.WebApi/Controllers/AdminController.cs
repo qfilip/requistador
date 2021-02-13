@@ -26,5 +26,12 @@ namespace Requistador.WebApi.Controllers
             var result = await Task.FromResult(_appConfigService.SetProcessingInterval(dto));
             return Ok(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetLogFile(string filename)
+        {
+            var result = await _appConfigService.GetLogFile(filename);
+            return Ok(result);
+        }
     }
 }

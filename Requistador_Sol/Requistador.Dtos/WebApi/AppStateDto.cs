@@ -8,5 +8,6 @@ namespace Requistador.Dtos.WebApi
     {
         public int ProcessingInterval { get; set; }
         public List<string> SyslogFiles { get; set; }
+        public byte[] LogFile { get; set; }
     }
 }

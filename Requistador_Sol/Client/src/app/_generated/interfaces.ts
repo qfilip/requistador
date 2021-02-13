@@ -49,6 +49,7 @@ export interface IAppStateDto extends IApiBaseDto
 {
 	processingInterval: number;
 	syslogFiles: string[];
+	logFile: number[];
 }
 export interface IAppUserDto
 {

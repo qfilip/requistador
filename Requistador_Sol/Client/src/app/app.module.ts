@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { DialogComponent } from './components/common/dialog/dialog.component';
 import { PageLoaderComponent } from './components/common/page-loader/page-loader.component';
 
 import { AppComponent } from './app.component';
@@ -29,11 +28,12 @@ import { TerminalComponent } from './components/other/terminal/terminal.componen
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { ShellModule } from './modules/shell/shell.module';
 import { AdminController } from './controllers/admin.controller';
+import { LogfileNamePipe } from './pipes/logfile-name.pipe';
+import { DialogComponent } from './components/common/dialog/dialog.component';
 
 @NgModule({
   declarations: [
     // common components
-    DialogComponent,
     PageLoaderComponent,
     NotificationComponent,
 
@@ -49,7 +49,12 @@ import { AdminController } from './controllers/admin.controller';
     AdminPanelComponent,
     
     // other components
-    TerminalComponent
+    TerminalComponent,
+
+    // pipes
+    LogfileNamePipe,
+
+    DialogComponent
   ],
   imports: [
     BrowserModule,

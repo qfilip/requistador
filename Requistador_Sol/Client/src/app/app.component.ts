@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { DialogComponent } from './components/common/dialog/dialog.component';
 import { IDialogOptions } from './models/interfaces/IDialogOptions';
 import { NotificationService } from './services/notification.service';
 import { PageLoaderService } from './services/page-loader.service';

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Requistador.WebApi.Services
 {
@@ -59,5 +60,20 @@ namespace Requistador.WebApi.Services
             
             return result;
         }
+
+
+        public async Task<AppStateDto> GetLogFile(string filename)
+        {
+            var path = Path.Combine(_syslogPath, filename);
+            var bytes = await File.ReadAllBytesAsync(path);
+
+            var result = new AppStateDto
+            {
+                LogFile = bytes
+            };
+
+
+            return result;
+        } 
     }
 }
