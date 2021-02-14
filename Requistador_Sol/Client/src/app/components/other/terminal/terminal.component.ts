@@ -9,6 +9,7 @@ import { HelpScript } from 'src/app/modules/shell/models/classes/help.shellscrip
 import { ManScript } from 'src/app/modules/shell/models/classes/man.shellscript';
 import { eShellColor } from 'src/app/modules/shell/models/enums';
 import { PageLoaderService } from 'src/app/services/page-loader.service';
+import { IApiAdminRequestDto } from 'src/app/_generated/interfaces';
 import { AppcfgScript } from '../../../modules/shell/models/classes/appcfg.shellscript';
 
 @Component({
@@ -133,12 +134,17 @@ export class TerminalComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
 
+    private handleAdminRequest(dto: IApiAdminRequestDto) {
+
+    }
+
+
     private manageSubscriptions() {
         this.shellService.onAdminRequest
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(x => {
             if(!!x) {
-                // invoke
+                this.handleAdminRequest(x);
             }
         });
     }

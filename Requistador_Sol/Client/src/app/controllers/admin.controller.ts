@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import * as urls from '../_generated/api.endpoints';
-import { IAppStateDto } from "../_generated/interfaces";
+import { IApiAdminRequestDto, IAppStateDto } from "../_generated/interfaces";
 
 @Injectable()
 export class AdminController {
@@ -14,13 +14,13 @@ export class AdminController {
         return this.http.get<IAppStateDto>(url);
     }
 
-    setProcessingInterval(dto: IAppStateDto): Observable<IAppStateDto> {
-        const url = urls.Admins_SetRequestProcessingInterval;
-        return this.http.post<IAppStateDto>(url, dto);
+    handleAdminRequest(dto: IAppStateDto): Observable<IApiAdminRequestDto> {
+        const url = urls.Admins_HandleAdminRequest;
+        return this.http.post<IApiAdminRequestDto>(url, dto);
     }
 
     getLogFile(filename: string): Observable<IAppStateDto> {
-        let params = new HttpParams().set('filename', filename)
+        let params = new HttpParams().set('filename', filename);
         const url = urls.Admins_GetLogFile;
         return this.http.get<IAppStateDto>(url, { params: params });
     }

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { IApiAdminRequest } from "src/app/_generated/interfaces";
+import { IApiAdminRequestDto } from "src/app/_generated/interfaces";
 import { IShellScript } from "./models/interfaces/IShellScript";
 
 @Injectable()
@@ -8,9 +8,9 @@ export class ShellService {
     private scripts: IShellScript[] = [];
     private scripts$: Subject<IShellScript[]> = new BehaviorSubject([]);
 
-    private adminRequest$: Subject<IApiAdminRequest> = new BehaviorSubject(null);
+    private adminRequest$: Subject<IApiAdminRequestDto> = new BehaviorSubject(null);
 
-    registerScript(script: IShellScript) {
+    invRegisterScript(script: IShellScript) {
         const registered = this.scripts
         .map(x => x.name)
         .includes(script.name);
@@ -29,11 +29,11 @@ export class ShellService {
     }
 
 
-    invokeAdminRequest(value: IApiAdminRequest) {
+    invAdminRequest(value: IApiAdminRequestDto) {
         this.adminRequest$.next(value);
     }
 
-    get onAdminRequest(): Observable<IApiAdminRequest> {
+    get onAdminRequest(): Observable<IApiAdminRequestDto> {
         return this.adminRequest$.asObservable();
     }
 

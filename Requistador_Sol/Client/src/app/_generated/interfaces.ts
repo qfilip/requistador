@@ -43,7 +43,7 @@ export interface IIngredientDto extends IBaseDto
 	strength: number;
 	excerpts: IExcerptDto[];
 }
-export interface IApiAdminRequest
+export interface IApiAdminRequestDto
 {
 	requestFor: eAdminRequestFor;
 	args: string[];

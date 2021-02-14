@@ -7,31 +7,31 @@ namespace Requistador.WebApi.Controllers
 {
     public class AdminController : BaseApiController
     {
-        private readonly AppStateService _appConfigService;
-        public AdminController(AppStateService appConfigService)
+        private readonly AdminService _adminService;
+        public AdminController(AdminService appConfigService)
         {
-            _appConfigService = appConfigService;
+            _adminService = appConfigService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAppConfiguration()
         {
-            var result = await Task.FromResult(_appConfigService.GetAppSettings());
-            return Ok(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SetRequestProcessingInterval([FromBody] AppStateDto dto)
-        {
-            var result = await Task.FromResult(_appConfigService.SetProcessingInterval(dto));
+            var result = await Task.FromResult(_adminService.GetAppSettings());
             return Ok(result);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetLogFile(string filename)
         {
-            var result = await _appConfigService.GetLogFile(filename);
+            var result = await _adminService.GetLogFileAsync(filename);
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> HandleAdminRequest([FromBody] ApiAdminRequestDto dto)
+        {
+            // var result = _adminService
+            return Ok();
         }
     }
 }

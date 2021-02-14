@@ -1,6 +1,6 @@
 import { ElementRef, Renderer2 } from "@angular/core";
 import { eAdminRequestFor } from "src/app/_generated/enums";
-import { IApiAdminRequest, IAppStateDto } from "src/app/_generated/interfaces";
+import { IApiAdminRequestDto } from "src/app/_generated/interfaces";
 import { ShellService } from "../../shell.service";
 import { eShellColor } from "../enums";
 import { ShellScriptBase } from "./base.shellscript";
@@ -26,7 +26,7 @@ export class AppcfgScript extends ShellScriptBase {
         const requestMaker = resolvers[option];
         const request = requestMaker(option, args);
 
-        this.shellService.invokeAdminRequest(request);
+        this.shellService.invAdminRequest(request);
     }
 
 
@@ -101,14 +101,14 @@ export class AppcfgScript extends ShellScriptBase {
 
 
     private getCommandResolvers() {
-        let resolvers: { [opt: string]: (opt: string, args: string[]) => IApiAdminRequest } = {};
+        let resolvers: { [opt: string]: (opt: string, args: string[]) => IApiAdminRequestDto } = {};
         const opts = this.options;
         
         resolvers[opts[0]] = (opt: string, args: string[]) => {
             return { 
                 requestFor: eAdminRequestFor.Timeout,
                 args: args
-            } as IApiAdminRequest;
+            } as IApiAdminRequestDto;
         }
 
         return resolvers;

@@ -41,7 +41,7 @@ namespace Requistador.WebApi
             services.AddHostedService<RequestQueueService>();
             services.AddTransient<RequestResolverService<BaseEntity>>();
             services.AddTransient<SyslogService>();
-            services.AddTransient<AppStateService>();
+            services.AddTransient<AdminService>();
         }
 
         private static void ConfigureImportedServices(IServiceCollection services)

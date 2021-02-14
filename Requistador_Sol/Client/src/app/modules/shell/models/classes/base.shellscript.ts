@@ -68,7 +68,7 @@ export abstract class ShellScriptBase implements OnDestroy {
             manual: this.getDocumentation()
         } as IShellScript;
 
-        this.shellService.registerScript(script);
+        this.shellService.invRegisterScript(script);
     }
 
     
