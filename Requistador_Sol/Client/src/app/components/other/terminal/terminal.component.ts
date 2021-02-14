@@ -87,7 +87,7 @@ export class TerminalComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     private parseInput() {
-        if(!this.terminalInput) {
+        if(!this.terminalInput && this.terminalInput.length === 0) {
             this.printBadCommand();
             
             return;

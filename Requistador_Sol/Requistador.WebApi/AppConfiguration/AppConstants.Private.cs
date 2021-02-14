@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Requistador.WebApi.AppConfiguration
 {
-    public static class AppConstants
+    public static partial class AppConstants
     {
         // common
         // used mostly for wwwroot folder/file paths //

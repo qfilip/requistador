@@ -2,6 +2,6 @@
 {
     public enum eLogSeverity
     {
-        Harmless, Worrying, Catastrophic
+        Meh, Uhm, Oops
     }
 }

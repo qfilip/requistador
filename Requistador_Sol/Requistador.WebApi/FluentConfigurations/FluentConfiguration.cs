@@ -8,7 +8,6 @@ using Requistador.Identity.Enumerations;
 using Requistador.WebApi.AppConfiguration;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -20,7 +19,7 @@ namespace Requistador.WebApi.FluentConfigurations
         {
             CustomFileExporter.ExportDir = builder.Context.TargetDirectory;
             CustomFileExporter.ExportApiEndpoints();
-            CustomFileExporter.ExportClientConstants();
+            CustomFileExporter.ExportPublicConstants();
 
             var dtos = new List<Type>();
 

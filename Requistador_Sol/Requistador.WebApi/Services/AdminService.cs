@@ -14,7 +14,6 @@ namespace Requistador.WebApi.Services
 {
     public class AdminService
     {
-        private readonly string _service;
         private readonly string _syslogPath;
         private readonly SyslogService _syslogService;
         public AdminService(IWebHostEnvironment environment, SyslogService syslogService)
@@ -68,35 +67,30 @@ namespace Requistador.WebApi.Services
         // handlers
         private async Task<bool> HandleTimeoutChangeRequestAsync(ApiAdminRequestDto dto)
         {
-            if(dto.Args == null || dto.Args.Count == 0)
+            var valid = await BasicRequestDtoValidator(dto);
+            if(!valid)
             {
-                var subject = "Request processing timeout change error";
-                var description = "Null or empty parameters provided";
-
-                var log = CreateSyslog(subject, description, eLogSeverity.Worrying);
-                await _syslogService.WriteLogAsync(log);
-
                 return false;
             }
 
-            var valid = Int32.TryParse(dto.Args[0], out int result);
+            valid = Int32.TryParse(dto.Args[0], out int result);
             if(!valid)
             {
                 var subject = "Request processing timeout change error";
                 var description = "Parameter could not be casted to integer";
 
-                var log = CreateSyslog(subject, description, eLogSeverity.Worrying);
+                var log = CreateSyslog(subject, description, eLogSeverity.Uhm);
                 await _syslogService.WriteLogAsync(log);
 
                 return false;
             }
 
-            if(result < 1)
+            if(result < AppConstants.PubConst_ProcessingTimeoutMin)
             {
                 var subject = "Request processing timeout change error";
-                var description = "Parameter value was less than 1";
+                var description = $"Parameter value was less than {AppConstants.PubConst_ProcessingTimeoutMin}";
 
-                var log = CreateSyslog(subject, description, eLogSeverity.Worrying);
+                var log = CreateSyslog(subject, description, eLogSeverity.Uhm);
                 await _syslogService.WriteLogAsync(log);
 
                 return false;
@@ -105,6 +99,23 @@ namespace Requistador.WebApi.Services
 
             AppSettings.SetRequestProcessingInterval(result);
             return true;
+        }
+
+
+        private async Task<bool> BasicRequestDtoValidator(ApiAdminRequestDto dto)
+        {
+            var valid = dto == null || dto.Args == null || dto.Args.Count == 0;
+            
+            if (!valid)
+            {
+                var subject = "Request processing timeout change error";
+                var description = "Null or empty parameters provided";
+
+                var log = CreateSyslog(subject, description, eLogSeverity.Uhm);
+                await _syslogService.WriteLogAsync(log);
+            }
+
+            return valid;
         }
 
 

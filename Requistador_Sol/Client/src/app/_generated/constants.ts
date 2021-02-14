@@ -1,1 +1,2 @@
-export const Ls_Jwt_Key = 'appjwtkey';
+export const PubConst_JwtKey = 'req_jwt_token';
+export const PubConst_ProcessingTimeoutMin = 30;

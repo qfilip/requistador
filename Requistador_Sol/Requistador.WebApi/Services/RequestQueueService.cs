@@ -1,17 +1,12 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Requistador.DataAccess.Contexts;
 using Requistador.Domain.Base;
-using Requistador.Domain.Entities;
-using Requistador.Domain.Enumerations;
-using Requistador.Logic.Commands.Request;
 using Requistador.WebApi.AppConfiguration;
 using Requistador.WebApi.AppConfiguration.Settings;
 using System;
 using System.IO;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -53,7 +48,7 @@ namespace Requistador.WebApi.Services
         {
             var interval = AppSettings.GetProcessingInterval();
             var dueTime = TimeSpan.Zero;
-            var period = TimeSpan.FromMinutes(interval);
+            var period = TimeSpan.FromSeconds(interval);
             
             _timer = new Timer(ProcessRequests, null, dueTime, period);
             return Task.CompletedTask;

@@ -44,18 +44,19 @@ namespace Requistador.WebApi.FluentConfigurations
             WriteToFile(AppConstants.Client_File_ControllerMethods, endpoints);
         }
 
-        public static void ExportClientConstants()
+        public static void ExportPublicConstants()
         {
             var constants = new List<KeyValuePair<string, string>>()
             {
                 // Ls - localStorage
-                KeyValuePair.Create("Ls_Jwt_Key", "appjwtkey")
+                KeyValuePair.Create(nameof(AppConstants.PubConst_JwtKey), AppConstants.PubConst_JwtKey),
+                KeyValuePair.Create(nameof(AppConstants.PubConst_ProcessingTimeoutMin), AppConstants.PubConst_ProcessingTimeoutMin.ToString())
             };
 
             var lines = new List<string>();
             foreach(var c in constants)
             {
-                var line = $"export const {c.Key} = '{c.Value}';";
+                var line = $"export const {c.Key} = {c.Value};";
                 lines.Add(line);
             }
 

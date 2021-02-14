@@ -4,6 +4,7 @@ import { IApiAdminRequestDto } from "src/app/_generated/interfaces";
 import { ShellService } from "../../shell.service";
 import { eShellColor } from "../enums";
 import { ShellScriptBase } from "./base.shellscript";
+import * as constants from '../../../../_generated/constants';
 
 export class AppcfgScript extends ShellScriptBase {
     
@@ -90,7 +91,8 @@ export class AppcfgScript extends ShellScriptBase {
         options[opts[0]] = (arg: string) => {
             let valid = !isNaN(parseInt(arg));
             if(valid) {
-                valid = valid && (parseInt(arg)) > 1;
+                const minimum = constants.PubConst_ProcessingTimeoutMin;
+                valid = valid && (parseInt(arg)) >= minimum;
             }
 
             return valid;
