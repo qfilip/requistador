@@ -14,6 +14,7 @@ import { DialogComponent } from '../common/dialog/dialog.component';
 })
 export class AdminPanelComponent implements OnInit {
     @ViewChild('logDialog') logDialog: DialogComponent;
+    @ViewChild('shellDialog') shellDialog: DialogComponent;
 
     constructor(
         private controller: AdminController,
@@ -67,5 +68,10 @@ export class AdminPanelComponent implements OnInit {
             this.logFile = x as string;
             this.logDialog.open(o);
         });
+    }
+
+
+    openShell() {
+        this.shellDialog.open({} as IDialogOptions);
     }
 }

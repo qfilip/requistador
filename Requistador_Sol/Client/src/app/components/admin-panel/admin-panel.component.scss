@@ -9,15 +9,8 @@
     overflow-y: auto;
 }
 
-.panel-left {
-    background-color: $blue-catacean-darker;
+.panel {
     color: $color-white;
-    height: 100vh !important;
-}
-
-.panel-right {
-    color: $color-white;
-    height: 100vh !important;
     position: relative;
 }
 

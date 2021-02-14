@@ -27,3 +27,7 @@ export enum eUserRole {
 	User = 1, 
 	Admin = 2
 }
+export enum eAdminRequestFor { 
+	Timeout = 0, 
+	Log = 1
+}

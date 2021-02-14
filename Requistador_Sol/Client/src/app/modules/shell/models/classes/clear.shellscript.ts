@@ -13,7 +13,7 @@ export class ClearScript extends ShellScriptBase {
         this.clearUserInput = clearFn;
     }
 
-    execute(option?: string, arg?: string) {
+    execute(option?: string, args?: string[]) {
         const childElements = Array.from(this.stdout.nativeElement.childNodes);
         for (let child of childElements) {
             this.renderer.removeChild(this.stdout.nativeElement, child);
@@ -22,7 +22,7 @@ export class ClearScript extends ShellScriptBase {
         this.clearUserInput();
     }
 
-    protected validate(option: string, arg: string): boolean {
+    protected validate(option: string, args: string[]): boolean {
         throw new Error("Method not implemented.");
     }
     protected getDocumentation(): string[] {

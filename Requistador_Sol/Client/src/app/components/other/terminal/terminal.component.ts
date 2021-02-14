@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ShellService } from 'src/app/modules/shell';
 import { BareShell } from 'src/app/modules/shell/models/classes/bare.shellscript';
 import { ShellScriptBase } from 'src/app/modules/shell/models/classes/base.shellscript';
@@ -14,11 +16,13 @@ import { AppcfgScript } from '../../../modules/shell/models/classes/appcfg.shell
     templateUrl: './terminal.component.html',
     styleUrls: ['./terminal.component.scss']
 })
-export class TerminalComponent implements OnInit, AfterViewInit {
+export class TerminalComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('stdout') stdout: ElementRef<HTMLDivElement>;
+    @ViewChild('shellInput') shellInput: ElementRef<HTMLInputElement>;
     @ViewChild('terminalBottom') terminalBottom: ElementRef<HTMLDivElement>;
     
     @Input() maxHeightStyle: string;
+    @Output() onShellCloseRequested = new EventEmitter<boolean>();
 
     constructor(
         private pageLoaderService: PageLoaderService,
@@ -26,12 +30,18 @@ export class TerminalComponent implements OnInit, AfterViewInit {
         private shellService: ShellService
     ) { }
 
+    private ngUnsubscribe = new Subject();
+
     terminalInput: string;
     shell: BareShell;
     shellScripts: ShellScriptBase[];
     
+    private history: string[] = [];
+    private historyIdx: number;
+    
     ngOnInit(): void {
         this.pageLoaderService.show();
+        this.manageSubscriptions();
     }
 
     ngAfterViewInit() {
@@ -45,12 +55,33 @@ export class TerminalComponent implements OnInit, AfterViewInit {
             new ClearScript(this.stdout, this.renderer, this.shellService, clear),
         ];
 
+        this.shellInput.nativeElement.focus();
         this.pageLoaderService.hide();
     }
 
     onEnter() {
         this.parseInput();
         this.shell.scrollToBottom();
+    }
+
+    onUpkey() {
+        if(this.historyIdx > 0) {
+            this.historyIdx--;
+        }
+        else if(this.historyIdx === 0) {
+            this.historyIdx = this.history.length - 1;
+        }
+
+        this.terminalInput = this.history[this.historyIdx];
+    }
+
+    onDownkey() {
+        this.historyIdx++;
+        if(this.historyIdx ===  this.history.length) {
+            this.historyIdx = 0;
+        }
+
+        this.terminalInput = this.history[this.historyIdx];
     }
 
 
@@ -60,12 +91,14 @@ export class TerminalComponent implements OnInit, AfterViewInit {
             
             return;
         }
-        let [command, option, arg] = this.terminalInput
-            .split(' ')
-            .filter(x => x !== '');
+
+        this.historyIdx = this.history.push(this.terminalInput) - 1;
+        let [ script, arg ] = this.terminalInput.split('--');
+        let [ command, option ] = script.split(' ');
+        let args = !!arg ? arg.split(' ') : [];
 
         // joke
-        let nix = ['ls', 'pwd', 'pid', 'cd', 'cat', 'touch'];
+        let nix = ['ls', 'tar', 'pwd', 'pid', 'cd', 'cat', 'touch'];
         const triedNix = nix.some(x => x === command);
         if(triedNix) {
              const message = 'Nice try. This is a dumb demo web app, not a *nix shell ';
@@ -83,7 +116,7 @@ export class TerminalComponent implements OnInit, AfterViewInit {
             return;
         }
 
-        shellCommand.execute(option, arg);
+        shellCommand.execute(option, args);
     }
 
 
@@ -94,19 +127,25 @@ export class TerminalComponent implements OnInit, AfterViewInit {
     }
 
 
-    private manHandler(option: string) {
-        if(!option || option.length === 0) {
-            const msg = [
-                'Insufficient arguments for [man] command',
-                'Try [man] [command] to get command details',
-                'Try [help] to see available commands'
-            ];
-            
-            this.printBadCommand(msg);
-            return;
-        }
+    emitCloseRequest() {
+        this.terminalInput = '';
+        this.onShellCloseRequested.emit(true);
+    }
 
-        // const manPage = this.shellDocs.getManual(option);
-        // manPage.forEach(x => this.printToShell(x));
+
+    private manageSubscriptions() {
+        this.shellService.onAdminRequest
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(x => {
+            if(!!x) {
+                // invoke
+            }
+        });
+    }
+
+    
+    ngOnDestroy() {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
     }
 }

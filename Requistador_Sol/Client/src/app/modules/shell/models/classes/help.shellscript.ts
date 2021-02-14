@@ -19,7 +19,7 @@ export class HelpScript extends ShellScriptBase {
 
 
     private subscribeToShell() {
-        this.shellService.registeredScripts
+        this.shellService.onRegisteredScript
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((xs: IShellScript[]) => {
             if(!!xs && xs.length > 0) {
@@ -29,7 +29,7 @@ export class HelpScript extends ShellScriptBase {
     }
 
 
-    execute(option?: string, arg?: string) {
+    execute(option?: string, args?: string[]) {
         let printArray = [ 'Available commands are:'];
         this.scriptNames.forEach(x => printArray.push(`[${x}]`));
         printArray.push('To obtain more info on command, type:');
@@ -39,7 +39,7 @@ export class HelpScript extends ShellScriptBase {
     }
 
 
-    protected validate(option: string, arg: string): boolean {
+    protected validate(option: string, args: string[]): boolean {
         throw new Error("Method not implemented.");
     }
 

@@ -5,6 +5,7 @@
 import { eAppRequestType } from './enums';
 import { eAppRequestStatus } from './enums';
 import { eEntityStatus } from './enums';
+import { eAdminRequestFor } from './enums';
 import { eUserRole } from './enums';
 import { eUserStatus } from './enums';
 
@@ -41,6 +42,11 @@ export interface IIngredientDto extends IBaseDto
 	name: string;
 	strength: number;
 	excerpts: IExcerptDto[];
+}
+export interface IApiAdminRequest
+{
+	requestFor: eAdminRequestFor;
+	args: string[];
 }
 export interface IApiBaseDto
 {

@@ -50,8 +50,8 @@ export abstract class ShellScriptBase implements OnDestroy {
 
         this.renderer.appendChild(this.stdout.nativeElement, outputRow);
     }
-    abstract execute(option?: string, arg?: string);
-    protected abstract validate(option: string, arg: string): boolean;
+    abstract execute(option?: string, args?: string[]);
+    protected abstract validate(option: string, args: string[]): boolean;
     protected abstract getDocumentation(): string[];
 
 

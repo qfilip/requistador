@@ -82,6 +82,11 @@ button {
     align-items: center;
 }
 
+.flx-xe {
+    display: flex;
+    justify-content: flex-end;
+}
+
 // utils
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */

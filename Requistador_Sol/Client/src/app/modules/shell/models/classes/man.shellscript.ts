@@ -19,7 +19,7 @@ export class ManScript extends ShellScriptBase {
 
 
     private subscribeToShell() {
-        this.shellService.registeredScripts
+        this.shellService.onRegisteredScript
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((xs: IShellScript[]) => {
             if(!!xs && xs.length > 0) {
@@ -29,8 +29,8 @@ export class ManScript extends ShellScriptBase {
     }
 
 
-    execute(option?: string, arg?: string) {
-        const valid = this.validate(option, arg);
+    execute(option?: string, args?: string[]) {
+        const valid = this.validate(option, args);
         if(!valid) {
             return;
         }
@@ -40,7 +40,7 @@ export class ManScript extends ShellScriptBase {
     }
     
 
-    protected validate(option: string, arg: string): boolean {
+    protected validate(option: string, args: string[]): boolean {
         let errors = [];
         const availableScripts = this.scripts.map(x => x.name);
 

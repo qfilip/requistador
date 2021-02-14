@@ -1,5 +1,6 @@
 ﻿using Reinforced.Typings.Fluent;
 using Requistador.Domain.Enumerations;
+using Requistador.Dtos;
 using Requistador.Dtos.Domain;
 using Requistador.Dtos.Identity;
 using Requistador.Dtos.WebApi;
@@ -45,7 +46,10 @@ namespace Requistador.WebApi.FluentConfigurations
 
                 // identity
                 typeof(eUserStatus),
-                typeof(eUserRole)
+                typeof(eUserRole),
+
+                // pure dto
+                typeof(eAdminRequestFor)
             },
             cfg => cfg.ExportTo("enums.ts"));
         }

@@ -26,10 +26,10 @@ export class BareShell extends ShellScriptBase {
         this.scrollToElement();
     }
 
-    execute(option?: string, arg?: string) {
+    execute(option?: string, args?: string[]) {
         throw new Error("Method not implemented.");
     }
-    protected validate(option: string, arg: string): boolean {
+    protected validate(option: string, args: string[]): boolean {
         throw new Error("Method not implemented.");
     }
     protected getDocumentation(): string[] {
