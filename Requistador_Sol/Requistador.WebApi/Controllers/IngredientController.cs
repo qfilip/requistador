@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Requistador.Dtos.Domain;
-using Requistador.Logic.Commands.Request;
 using Requistador.Logic.Queries.Ingredient;
 using System.Threading.Tasks;
 
@@ -16,8 +15,9 @@ namespace Requistador.WebApi.Controllers
 
         public async Task<IActionResult> Create([FromBody] IngredientDto dto)
         {
-            var result = await Mediator.Send(new AddIngredientRequestCommand(dto));
-            return Ok(result);
+            //var result = await Mediator.Send(new AddIngredientRequestCommand(dto));
+            //return Ok(result);
+            return Ok();
         }
     }
 }

@@ -2,9 +2,6 @@
 using Requistador.Domain.Entities;
 using Requistador.Domain.Enumerations;
 using Requistador.Logic.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,6 +14,8 @@ namespace Requistador.Logic.Commands
         {
             _entity = entity;
         }
+
+      
 
         public class Handler : BaseHandler<AddIngredientCommand, eAppRequestStatus>
         {

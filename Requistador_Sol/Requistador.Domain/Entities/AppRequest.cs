@@ -1,21 +1,11 @@
-﻿using LiteDB;
-using Requistador.Domain.Base;
-using Requistador.Domain.Enumerations;
+﻿using Requistador.Domain.Base;
 using System;
 
 namespace Requistador.Domain.Entities
 {
-    public class AppRequest<TEntity> where TEntity : BaseEntity
+    public class AppRequest : BaseRequestEntity
     {
-        [BsonId(false)]
-        public Guid Id { get; set; }
-        public DateTime CreatedOn { get; set; }
-
-        public eAppRequestType RequestType { get; set; }
-        public eAppRequestStatus RequestStatus { get; set; }
-        public TEntity Entity { get; set; }
-
         public Guid PendingRequestId { get; set; }
-        public AppRequest<TEntity> PendingRequest { get; set; }
+        public AppRequest PendingRequest { get; set; }
     }
 }

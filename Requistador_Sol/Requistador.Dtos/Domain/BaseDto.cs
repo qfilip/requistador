@@ -1,7 +1,5 @@
 ﻿using Requistador.Domain.Enumerations;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Requistador.Dtos.Domain
 {

@@ -11,6 +11,7 @@ export const Admins_HandleAdminRequest = 'http://localhost:5655/Admin/HandleAdmi
 
 // Cocktails
 export const Cocktails_GetAll = 'http://localhost:5655/Cocktail/GetAll';
+export const Cocktails_Create = 'http://localhost:5655/Cocktail/Create';
 
 // Ingredients
 export const Ingredients_GetAll = 'http://localhost:5655/Ingredient/GetAll';

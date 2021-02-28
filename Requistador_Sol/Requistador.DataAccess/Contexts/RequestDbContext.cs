@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace Requistador.DataAccess.Contexts
 {
@@ -32,7 +31,7 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
-        public TEntity Get<TEntity>(int id) where TEntity : AppRequest<BaseEntity>
+        public TEntity Get<TEntity>(int id) where TEntity : BaseRequestEntity
         {
             using (var db = new LiteDatabase(_dbPath))
             {
@@ -43,7 +42,7 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
-        public TEntity Get<TEntity>(Query dbQuery) where TEntity : AppRequest<BaseEntity>
+        public TEntity Get<TEntity>(Query dbQuery) where TEntity : BaseRequestEntity
         {
             using (var db = new LiteDatabase(_dbPath))
             {
@@ -54,7 +53,7 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
-        public IEnumerable<TEntity> GetAll<TEntity>() where TEntity : AppRequest<BaseEntity>
+        public IEnumerable<TEntity> GetAll<TEntity>() where TEntity : BaseRequestEntity
         {
             using (var db = new LiteDatabase(_dbPath))
             {
@@ -65,7 +64,7 @@ namespace Requistador.DataAccess.Contexts
             }
         } 
 
-        public IEnumerable<TEntity> FindAll<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : AppRequest<BaseEntity>
+        public IEnumerable<TEntity> FindAll<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : BaseRequestEntity
         {
             using (var db = new LiteDatabase(_dbPath))
             {
@@ -76,7 +75,7 @@ namespace Requistador.DataAccess.Contexts
             }
         }
 
-        public Guid Insert<TEntity>(TEntity entity) where TEntity : AppRequest<BaseEntity>
+        public Guid Insert<TEntity>(TEntity entity) where TEntity : BaseRequestEntity
         {
             BsonValue result;
             using (var db = new LiteDatabase(_dbPath))
@@ -88,7 +87,7 @@ namespace Requistador.DataAccess.Contexts
             return result.AsGuid;
         }
 
-        public void InsertMany<TEntity>(IEnumerable<TEntity> entity) where TEntity : AppRequest<BaseEntity>
+        public void InsertMany<TEntity>(IEnumerable<TEntity> entity) where TEntity : BaseRequestEntity
         {
             using (var db = new LiteDatabase(_dbPath))
             {

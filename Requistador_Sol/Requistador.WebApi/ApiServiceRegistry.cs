@@ -1,5 +1,6 @@
 ﻿using MapsterMapper;
 using MediatR;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,8 +39,6 @@ namespace Requistador.WebApi
 
         private static void ConfigureAppServices(IServiceCollection services)
         {
-            services.AddHostedService<RequestQueueService>();
-            services.AddTransient<RequestResolverService<BaseEntity>>();
             services.AddTransient<SyslogService>();
             services.AddTransient<AdminService>();
         }
@@ -47,8 +46,10 @@ namespace Requistador.WebApi
         private static void ConfigureImportedServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
+            services.AddScoped(typeof(IRequestExceptionAction<,>), typeof(BaseRequestExceptionAction<,>));
+            // services.AddTransient(typeof(IPipelineBehavior<,>), typeof(BaseBehavior<,>));
             //services.AddAutoMapper(typeof(MappingProfiles));
-            
+
             services.AddSingleton(AppSettings.GetMapsterConfiguration());
             services.AddTransient<IMapper, ServiceMapper>();
         }

@@ -2,28 +2,35 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
+import { eEntityStatus } from './enums';
 import { eAppRequestType } from './enums';
 import { eAppRequestStatus } from './enums';
-import { eEntityStatus } from './enums';
 import { eAdminRequestFor } from './enums';
 import { eUserRole } from './enums';
 import { eUserStatus } from './enums';
 
-export interface IAppRequestDto<TDto>
+export interface IAppRequestDto<T> extends IBaseRequestDto<T>
 {
-	id: any;
-	createdOn: any;
-	requestType: eAppRequestType;
-	requestStatus: eAppRequestStatus;
-	entity: TDto;
 	pendingRequestId: any;
-	pendingRequest: IAppRequestDto<TDto>;
+	pendingRequest: IAppRequestDto<T>;
 }
 export interface IBaseDto
 {
 	id: any;
 	entityStatus: eEntityStatus;
 	createdOn: any;
+}
+export interface IBaseRequestDto<T>
+{
+	id: any;
+	entityStatus: eEntityStatus;
+	createdOn: any;
+	requestType: eAppRequestType;
+	requestStatus: eAppRequestStatus;
+	entityId: any;
+	entityTable: number;
+	detailsJson: string;
+	detailsObject: T;
 }
 export interface ICocktailDto extends IBaseDto
 {
