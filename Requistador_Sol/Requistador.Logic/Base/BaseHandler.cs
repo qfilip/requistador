@@ -27,6 +27,12 @@ namespace Requistador.Logic.Base
             _mediator = mediator;
         }
 
+        public BaseHandler(AppDbContext dbContext, IMapper mapper)
+        {
+            _dbContext = dbContext;
+            _mapper = mapper;
+        }
+
         public BaseHandler(AppDbContext dbContext, IMediator mediator, IMapper mapper)
         {
             _dbContext = dbContext;
@@ -37,6 +43,11 @@ namespace Requistador.Logic.Base
         public BaseHandler(RequestDbContext requestDbContext)
         {
             _requestDbContext = requestDbContext;
+        }
+
+        public BaseHandler(AppDbContext dbContext)
+        {
+            _dbContext = dbContext;
         }
 
         public BaseHandler(RequestDbContext requestDbContext, IMapper mapper)

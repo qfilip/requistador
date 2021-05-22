@@ -63,5 +63,16 @@ namespace Requistador.WebApi.FluentConfigurations
                 .OrderBy(i => i.Name != nameof(T))
                 .ToArray();
         }
+
+        private static TBuilder BaseConfiguration<TBuilder>(this TBuilder conf)
+            where TBuilder : ClassOrInterfaceExportBuilder
+        {
+            conf
+                .WithPublicProperties(i => i.CamelCase())
+                .WithProperties(i => i.PropertyType == typeof(DateTime) || i.PropertyType == (typeof(DateTime?)), i => i.Type("Date"))
+                .WithProperties(i => i.PropertyType == typeof(Guid) || i.PropertyType == (typeof(Guid?)), i => i.Type("string"));
+
+            return conf;
+        }
     }
 }
